@@ -1,5 +1,5 @@
 <?php
-$conn = mysqli_connect("localhost", "root", "", "employeedb");
+$conn = mysqli_connect("localhost", "root", "", "employee");
 if (!$conn) die("DB connection failed: " . mysqli_connect_error());
 
 if (isset($_POST['login'])) {

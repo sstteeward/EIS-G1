@@ -1,5 +1,5 @@
 <?php
 
-     $conn = mysqli_connect("localhost","root","","employeedb");
+     $conn = mysqli_connect("localhost","root","","employee");
 
 ?>

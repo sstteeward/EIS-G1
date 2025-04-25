@@ -8,7 +8,7 @@
         $position = $_POST['position'];
         $sex = $_POST['sex'];
 
-        $insert = mysqli_query($conn, "INSERT INTO employeedb (employeeID, fullName, email, position, sex) 
+        $insert = mysqli_query($conn, "INSERT INTO employees (employeeID, fullName, email, position, sex) 
                                        VALUES ('$employeeID', '$fullName', '$email', '$position', '$sex')");
 
         if ($insert) {
