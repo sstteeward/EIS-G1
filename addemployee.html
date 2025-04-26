@@ -1,50 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="assets\LOGO for title.png">
-    <title>Asian College EIS Admin</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="assets/LOGO for title.png">
+  <title>Asian College EIS Admin</title>
 </head>
 <body>
-    <nav class="top-nav">
-        <h2>Asian College EIS Admin</h2>
-        <img src="assets\logo2-removebg-preview.png" alt="">
-        <ul>
-        <li><a href="home.html">Home</a></li>
-            <li><a href="notifications.html">Notifications</a></li>
-            <li><a href="employee.html">Employee</a></li>
-            <li><a href="addemployee.html">Add New Employee</a></li>
-        </ul>    
-    </nav>
-        <div class="main-content">
-            <section id="add-employee">
-                <h1>Add New Employee</h1>
-                <form action="insert.php" method="post">
-                    <label for="id">Employee ID:</label>
-                    <input type="text" id="name" name="id" required>
-
-                    <label for="fullname">Full Name:</label>
-                    <input type="text" id="fullname" name="fullname" required>
-                    
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                    
-                    <label for="position">Position:</label>
-                    <input type="text" id="position" name="position" required>
-
-                    <label for="sex">Sex: </label>
-                    <input type="radio" id="male" name="sex" value="male" required>
-                    <label for="male">Male</label>
-                    <input type="radio" id="female" name="sex" value="female" required>
-                    <label for="female">Female</label><br>
-                    
-                    <button type="submit" name="submit">Add Employee</button>
-                    
-                </form>
-            </section>
-        </div>
+  <nav class="top-nav">
+    <h2>Asian College EIS Admin</h2>
+    <img src="assets/logo2-removebg-preview.png" alt="Logo">
+    <div class="menu">
+      <img id="menuBtn" class="menuBtn" src="assets/menuIcon.png" alt="Menu Button" />
+      <ul id="menuItems" class="menuItems">
+        <li><a href="home.html">🏠 Home</a></li>
+        <li><a href="notifications.html">🔔 Notifications</a></li>
+        <li><a href="employee.html">👨‍💼 Employee</a></li>
+        <li><a href="addemployee.html">➕ Add New Employee</a></li>
+      </ul>
     </div>
+  </nav>
+
+  <div class="main-content">
+    <section id="add-employee">
+      <h1>➕ Add New Employee</h1>
+      <form action="insert.php" method="post">
+        <label for="id">Employee ID:</label>
+        <input type="text" id="id" name="id" required>
+
+        <label for="fullname">Full Name:</label>
+        <input type="text" id="fullname" name="fullname" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="position">Position:</label>
+        <input type="text" id="position" name="position" required>
+
+        <label>Sex:</label>
+        <div class="radio-group">
+          <input type="radio" id="male" name="sex" value="male" required>
+          <label for="male">Male</label>
+
+          <input type="radio" id="female" name="sex" value="female" required>
+          <label for="female">Female</label>
+        </div>
+
+        <button type="submit" name="submit">Add Employee</button>
+      </form>
+    </section>
+  </div>
+
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const menuItems = document.getElementById('menuItems');
+
+    let menuOpen = false;
+
+    menuBtn.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      if (menuOpen) {
+        menuBtn.src = 'assets/closeIcon.png'; // Change to close icon
+        menuItems.classList.add('menuOpen');
+      } else {
+        menuBtn.src = 'assets/menuIcon.png'; // Change back to menu icon
+        menuItems.classList.remove('menuOpen');
+      }
+    });
+
+    menuItems.addEventListener('click', () => {
+      menuOpen = false;
+      menuBtn.src = 'assets/menuIcon.png';
+      menuItems.classList.remove('menuOpen');
+    });
+  </script>
 </body>
 </html>
