@@ -23,9 +23,9 @@ if (isset($_POST['login'])) {
     if (mysqli_stmt_num_rows($stmt) === 1) {
        
         if ($role === 'admin') {
-            header("Location: Admin\home.html");
+            header("Location: home.html");
         } elseif ($role === 'employee') {
-            header("Location: Employee\homeemployee.html");
+            header("Location: homeemployee.html");
         }
         exit();
     } else {
