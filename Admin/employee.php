@@ -31,7 +31,7 @@
       <table class="employee-table">
         <thead>
           <tr>
-            <th>#</th>
+            <th>Number</th>
             <th>Employee ID</th>
             <th>Full Name</th>
             <th>Email</th>
@@ -79,7 +79,7 @@
       <table class="employee-table">
         <thead>
           <tr>
-            <th>#</th>
+            <th>Number</th>
             <th>Employee ID</th>
             <th>Full Name</th>
             <th>Email</th>
