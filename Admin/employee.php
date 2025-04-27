@@ -5,7 +5,8 @@
   <link rel="stylesheet" href="employee.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="assets/LOGO for title.png">
-  <title>Asian College EIS Admin - Employee List</title>
+  <title>Asian College EIS Admin</title>
+
 </head>
 <body>
   <nav class="top-nav">
@@ -16,47 +17,102 @@
       <ul id="menuItems" class="menuItems">
         <li><a href="home.html">🏠 Home</a></li>
         <li><a href="notifications.html">🔔 Notifications</a></li>
-        <li><a href="employee.php">🧑‍💼 Employees</a></li>
-        <li><a href="addemployee.html">➕ Add New Employee</a></li>
-        <li><a href="logout.php">🚪 Logout</a></li>
+        <li><a href="employee.php">🧑‍💼 Users</a></li>
+        <li><a href="addemployee.html">➕ Add New User</a></li>
+        <li><a href="#" onclick="confirmLogout()">🚪 Logout</a></li>
       </ul>
     </div>
   </nav>
 
   <div class="main-content">
-    <section id="employee-list">
-      <h1>🧑‍💼 Admin List</h1>
+    <!-- Admin List -->
+    <section id="admin-list">
+      <h1 style="text-align: center;">Admin List</h1>
       <table class="employee-table">
         <thead>
           <tr>
-            <th>Number</th>
+            <th>#</th>
             <th>Employee ID</th>
             <th>Full Name</th>
             <th>Email</th>
             <th>Position</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           <?php
-          
-          include 'db.php'; 
+          include 'db.php';
 
-          $sql = "SELECT * FROM employees"; 
-          $result = mysqli_query($conn, $sql);
+          $sql_admins = "SELECT * FROM employees"; 
+          $result_admins = mysqli_query($conn, $sql_admins);
 
-          if (mysqli_num_rows($result) > 0) {
+          if (mysqli_num_rows($result_admins) > 0) {
               $counter = 1;
-              while($row = mysqli_fetch_assoc($result)) {
+              while($row = mysqli_fetch_assoc($result_admins)) {
                   echo "<tr>";
                   echo "<td>" . $counter++ . "</td>";
                   echo "<td>" . htmlspecialchars($row['employeeID']) . "</td>";
                   echo "<td>" . htmlspecialchars($row['fullName']) . "</td>";
                   echo "<td>" . htmlspecialchars($row['email']) . "</td>";
                   echo "<td>" . htmlspecialchars($row['position']) . "</td>";
+                  echo "<td class='action-buttons'>
+                          <a href='edit_admin.php?id=" . $row['employeeID'] . "'>
+                            <button class='action-btn edit-btn'>Edit</button>
+                          </a>
+                          <a href='delete_admin.php?id=" . $row['employeeID'] . "' onclick='return confirm(\"Are you sure you want to delete this Admin?\");'>
+                            <button class='action-btn delete-btn'>Delete</button>
+                          </a>
+                        </td>";
                   echo "</tr>";
               }
           } else {
-              echo "<tr><td colspan='5'>No employees found.</td></tr>";
+              echo "<tr><td colspan='6'>No Admins found.</td></tr>";
+          }
+          ?>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Employee List -->
+    <section id="employee-list" style="margin-top: 60px;">
+      <h1 style="text-align: center;">Employee List</h1>
+      <table class="employee-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Employee ID</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Position</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+          $sql_employees = "SELECT * FROM employeeuser"; 
+          $result_employees = mysqli_query($conn, $sql_employees);
+
+          if (mysqli_num_rows($result_employees) > 0) {
+              $counter = 1;
+              while($row = mysqli_fetch_assoc($result_employees)) {
+                  echo "<tr>";
+                  echo "<td>" . $counter++ . "</td>";
+                  echo "<td>" . htmlspecialchars($row['employeeID']) . "</td>";
+                  echo "<td>" . htmlspecialchars($row['fullName']) . "</td>";
+                  echo "<td>" . htmlspecialchars($row['email']) . "</td>";
+                  echo "<td>" . htmlspecialchars($row['position']) . "</td>";
+                  echo "<td class='action-buttons'>
+                          <a href='edit_employee.php?id=" . $row['employeeID'] . "'>
+                            <button class='action-btn edit-btn'>Edit</button>
+                          </a>
+                          <a href='delete_employee.php?id=" . $row['employeeID'] . "' onclick='return confirm(\"Are you sure you want to delete this Employee?\");'>
+                            <button class='action-btn delete-btn'>Delete</button>
+                          </a>
+                        </td>";
+                  echo "</tr>";
+              }
+          } else {
+              echo "<tr><td colspan='6'>No Employees found.</td></tr>";
           }
 
           mysqli_close($conn);
@@ -88,6 +144,12 @@
       menuBtn.src = 'assets/menuIcon.png';
       menuItems.classList.remove('menuOpen');
     });
+
+    function confirmLogout() {
+      if (confirm("Are you sure you want to logout?")) {
+        window.location.href = "logout.php";
+      }
+    }
   </script>
 </body>
 </html>

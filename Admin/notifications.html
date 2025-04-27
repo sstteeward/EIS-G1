@@ -18,12 +18,10 @@
             <li><a href="notifications.html">🔔 Notifications</a></li>
             <li><a href="employee.php">👨‍💼 Employee</a></li>
             <li><a href="addemployee.html">➕ Add New Employee</a></li>
-            <li><a href="logout.php">🚪 Logout</a></li>
+            <li><a href="#" onclick="confirmLogout()">🚪 Logout</a></li>
           </ul>
         </div>
       </nav>
-    
-      <h1>wait for updatee</h1>
     
       <script>
         const menuBtn = document.getElementById('menuBtn');
@@ -47,6 +45,12 @@
           menuBtn.src = 'assets/menuIcon.png';
           menuItems.classList.remove('menuOpen');
         });
+
+        function confirmLogout() {
+            if (confirm("Are you sure you want to logout?")) {
+                window.location.href = "logout.php";
+            }
+        }
       </script>
 </body>
 </html>

@@ -1,11 +1,9 @@
-/* Reset defaults */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Body styling */
 body, html {
     height: 100%;
     font-family: Arial, sans-serif;
@@ -13,7 +11,6 @@ body, html {
     margin: 0;
 }
 
-/* Top navigation bar */
 .top-nav {
     background-color: #1e3a8a;
     color: white;
@@ -62,16 +59,14 @@ body, html {
     background-color: #e11d48;
 }
 
-/* Home content */
 h1 {
-    margin-top: 100px; /* Space for the fixed top navigation */
+    margin-top: 100px; 
     text-align: center;
     font-size: 30px;
     font-weight: 600;
     color: #333;
 }
 
-/* Mobile version (default) */
 @media screen and (max-width: 767px) {
     .menuItems {
         display: none;
@@ -82,7 +77,6 @@ h1 {
         cursor: pointer;
     }
 
-    /* Adjust the top nav for mobile */
     .top-nav {
         padding: 15px;
         display: flex;
@@ -93,7 +87,6 @@ h1 {
         font-size: 18px;
     }
 
-    /* Hide menu items on mobile, show when open */
     .menuItems {
         display: none;
         flex-direction: column;
@@ -121,7 +114,6 @@ h1 {
     }
 }
 
-/* For larger screens (min-width: 768px) */
 @media screen and (min-width: 768px) {
     .menuItems {
         display: flex;
@@ -136,7 +128,6 @@ h1 {
     }
 }
 
-/* Ensure the top nav does not overlap content */
 body {
     padding-top: 70px;
 }

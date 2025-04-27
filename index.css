@@ -92,3 +92,25 @@ body {
 .login button {
     transition: background-color 0.3s ease;
 }
+
+.logout-link {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    text-decoration: none;
+    color: #333;
+    padding: 5px 10px;
+    border: 1px solid #333;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.logout-link:hover {
+    background-color: #333;
+    color: white;
+}
+header {
+    position: relative; 
+    padding: 20px;
+}

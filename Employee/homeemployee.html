@@ -16,8 +16,8 @@
           <ul id="menuItems" class="menuItems">
             <li><a href="">🏠 Home</a></li>
             <li><a href="">🔔 Notifications</a></li>
-            <li><a href="">👨‍💼 Employees</a></li>
-            <li><a href="">🚪 Logout</a></li>
+            <li><a href="#">👨‍💼 Employees</a></li>
+            <li><a href="#" onclick="confirmLogout()">🚪 Logout</a></li>
           </ul>
         </div>
       </nav>
@@ -46,6 +46,12 @@
           menuBtn.src = 'assets/menuIcon.png';
           menuItems.classList.remove('menuOpen');
         });
+
+        function confirmLogout() {
+            if (confirm("Are you sure you want to logout?")) {
+                window.location.href = "logout.php";
+            }
+        }
       </script>
 </body>
 </html>

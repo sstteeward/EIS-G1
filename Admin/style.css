@@ -61,6 +61,7 @@ body, html {
     display: none;
 }
 
+/* Layout */
 .desktop-layout {
     display: flex;
     height: 100%;
@@ -123,7 +124,7 @@ form input {
 .radio-option {
     display: flex;
     align-items: center;
-    gap: 10px; 
+    gap: 10px;
     font-weight: normal;
     font-size: 16px;
     cursor: pointer;
@@ -158,7 +159,28 @@ form input {
     font-size: 16px;
 }
 
+form select {
+    margin-bottom: 15px;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    background-color: #fff;
+    color: #333;
+    appearance: none;
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 10px 6px;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
 
+form select:focus {
+    border-color: #1e3a8a;
+    outline: none;
+}
+
+/* Submit button */
 form button {
     padding: 12px;
     background-color: #e11d48;
@@ -174,6 +196,7 @@ form button:hover {
     background-color: #c81e3c;
 }
 
+/* Mobile responsive styles */
 @media (max-width: 768px) {
     .top-nav ul {
         display: none;
@@ -197,7 +220,6 @@ form button:hover {
         overflow: hidden;
         padding: 10px 0;
         z-index: 999;
-        border: 2px solid #e11d48; 
     }
 
     .menuItems li {

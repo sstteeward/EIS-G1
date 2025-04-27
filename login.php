@@ -12,20 +12,31 @@ if (isset($_POST['login'])) {
         fail();
     }
 
-    $stmt = mysqli_prepare(
-        $conn,
-        "SELECT 1 FROM employees WHERE email = ? AND employeeID = ? LIMIT 1"
-    );
+    if ($role === 'admin') {
+        
+        $stmt = mysqli_prepare(
+            $conn,
+            "SELECT 1 FROM employees WHERE email = ? AND employeeID = ? LIMIT 1"
+        );
+    } elseif ($role === 'employee') {
+    
+        $stmt = mysqli_prepare(
+            $conn,
+            "SELECT 1 FROM employeeuser WHERE email = ? AND employeeID = ? LIMIT 1"
+        );
+    } else {
+        fail(); 
+    }
+
     mysqli_stmt_bind_param($stmt, "ss", $email, $employeeID);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_store_result($stmt);
 
     if (mysqli_stmt_num_rows($stmt) === 1) {
-       
         if ($role === 'admin') {
-            header("Location: Admin\home.html");
+            header("Location: Admin/home.html");
         } elseif ($role === 'employee') {
-            header("Location: Employee\homeemployee.html");
+            header("Location: Employee/homeemployee.html");
         }
         exit();
     } else {
@@ -34,7 +45,6 @@ if (isset($_POST['login'])) {
 } else {
     echo "Invalid request.";
 }
-
 
 function fail() {
     echo "<script>
