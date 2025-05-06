@@ -17,6 +17,7 @@
             <li><a href="">🏠 Home</a></li>
             <li><a href="">🔔 Notifications</a></li>
             <li><a href="#">👨‍💼 Employees</a></li>
+            <li><a href="#">Profile</a></li>
             <li><a href="#" onclick="confirmLogout()">🚪 Logout</a></li>
           </ul>
         </div>

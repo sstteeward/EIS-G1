@@ -60,6 +60,8 @@
                 loginForm.classList.remove('hidden');
             }
         });
+
     </script>
+    
 </body>
 </html>

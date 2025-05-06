@@ -16,12 +16,14 @@ if (isset($_POST['login'])) {
         
         $stmt = mysqli_prepare(
             $conn,
+            // admin table
             "SELECT 1 FROM employees WHERE email = ? AND employeeID = ? LIMIT 1"
         );
     } elseif ($role === 'employee') {
     
         $stmt = mysqli_prepare(
             $conn,
+            // employeeuser table
             "SELECT 1 FROM employeeuser WHERE email = ? AND employeeID = ? LIMIT 1"
         );
     } else {
@@ -34,9 +36,9 @@ if (isset($_POST['login'])) {
 
     if (mysqli_stmt_num_rows($stmt) === 1) {
         if ($role === 'admin') {
-            header("Location: Admin/home.html");
+            header("Location: Admin/home.php");
         } elseif ($role === 'employee') {
-            header("Location: Employee/homeemployee.html");
+            header("Location: Employee/homeemployee.php");
         }
         exit();
     } else {
@@ -49,7 +51,7 @@ if (isset($_POST['login'])) {
 function fail() {
     echo "<script>
             alert('Invalid email, ID, or role.');
-            window.location.href = 'index.html';
+            window.location.href = 'index.php';
           </script>";
     exit();
 }

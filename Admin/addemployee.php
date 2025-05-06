@@ -14,10 +14,10 @@
     <div class="menu">
       <img id="menuBtn" class="menuBtn" src="assets/menuIcon.png" alt="Menu Button" />
       <ul id="menuItems" class="menuItems">
-        <li><a href="home.html">🏠 Home</a></li>
-        <li><a href="notifications.html">🔔 Notifications</a></li>
+        <li><a href="home.php">🏠 Home</a></li>
+        <li><a href="notifications.php">🔔 Notifications</a></li>
         <li><a href="employee.php">👨‍💼 Employee</a></li>
-        <li><a href="addemployee.html">➕ Add New Employee</a></li>
+        <li><a href="addemployee.php">➕ Add New Employee</a></li>
         <li><a href="#" onclick="confirmLogout()">🚪 Logout</a></li>
       </ul>
     </div>
@@ -26,7 +26,7 @@
   <div class="main-content">
     <section id="add-employee">
       <h1>➕ Add New Employee/Admin</h1>
-      <form action="insert.php" method="post">
+      <form action="insert.php" method="post" enctype="multipart/form-data>
         
         <label for="id">Employee ID:</label>
         <input type="text" id="id" name="id" required>
@@ -62,6 +62,19 @@
           </label>
         </div>
 
+        <label for="profile">Picture:</label>
+        <input type="file" name="profile" id="profile" accept="image/*" required>
+
+        <img id="previewImg" src="#" alt="Preview" style="max-width: 150px; display: none; margin-top: 10px;">
+
+        <div class="wrapper" id="previewWrapper" style="display:none;">
+          <a id="imagePreviewLink" target="_blank">
+            <img id="preview" alt="Image Preview">
+          </a>
+        </div>
+
+
+
         <button type="submit" name="submit">Add</button>
       </form>
     </section>
@@ -95,6 +108,15 @@
           window.location.href = "logout.php";
       }
     }
+
+    document.getElementById('profile').onchange = function (event) {
+      const [file] = this.files;
+      if (file) {
+        const preview = document.getElementById('previewImg');
+        preview.src = URL.createObjectURL(file);
+        preview.style.display = 'block';
+      }
+    };
   </script>
 </body>
 </html>
