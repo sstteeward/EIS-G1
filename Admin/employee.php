@@ -33,7 +33,9 @@
             <th>Number</th>
             <th>Picture</th>
             <th>Employee ID</th>
-            <th>Full Name</th>
+            <th>First Name</th>
+            <th>Middle Name</th>
+            <th>Last Name</th>
             <th>Email</th>
             <th>Position</th>
             <th>Actions</th>
@@ -53,7 +55,9 @@
                   echo "<td>" . $counter++ . "</td>";
                   echo "<td><img src='" . htmlspecialchars($row['picture']) . "' alt='Profile' style='width: 50px; height: 50px; border-radius: 50%; object-fit: cover;'></td>";
                   echo "<td>" . htmlspecialchars($row['employeeID']) . "</td>";
-                  echo "<td>" . htmlspecialchars($row['fullName']) . "</td>";
+                  echo "<td>" . htmlspecialchars($row['firstName']) . "</td>";
+                  echo "<td>" . htmlspecialchars($row['middleName']) . "</td>";
+                  echo "<td>" . htmlspecialchars($row['lastName']) . "</td>";
                   echo "<td>" . htmlspecialchars($row['email']) . "</td>";
                   echo "<td>" . htmlspecialchars($row['position']) . "</td>";
                   echo "<td class='action-buttons'>
@@ -67,7 +71,7 @@
                   echo "</tr>";
               }
           } else {
-              echo "<tr><td colspan='7'>No Admins found.</td></tr>";
+              echo "<tr><td colspan='9'>No Admins found.</td></tr>";
           }
           ?>
         </tbody>
@@ -83,7 +87,9 @@
             <th>Number</th>
             <th>Picture</th>
             <th>Employee ID</th>
-            <th>Full Name</th>
+            <th>First Name</th>
+            <th>Middle Name</th>
+            <th>Last Name</th>
             <th>Email</th>
             <th>Position</th>
             <th>Actions</th>
@@ -101,7 +107,9 @@
                   echo "<td>" . $counter++ . "</td>";
                   echo "<td><img src='" . htmlspecialchars($row['picture']) . "' alt='Profile' style='width: 50px; height: 50px; border-radius: 50%; object-fit: cover;'></td>";
                   echo "<td>" . htmlspecialchars($row['employeeID']) . "</td>";
-                  echo "<td>" . htmlspecialchars($row['fullName']) . "</td>";
+                  echo "<td>" . htmlspecialchars($row['firstName']) . "</td>";
+                  echo "<td>" . htmlspecialchars($row['middleName']) . "</td>";
+                  echo "<td>" . htmlspecialchars($row['lastName']) . "</td>";
                   echo "<td>" . htmlspecialchars($row['email']) . "</td>";
                   echo "<td>" . htmlspecialchars($row['position']) . "</td>";
                   echo "<td class='action-buttons'>
@@ -115,7 +123,7 @@
                   echo "</tr>";
               }
           } else {
-              echo "<tr><td colspan='7'>No Employees found.</td></tr>";
+              echo "<tr><td colspan='9'>No Employees found.</td></tr>";
           }
 
           mysqli_close($conn);

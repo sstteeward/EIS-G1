@@ -26,13 +26,19 @@
   <div class="main-content">
     <section id="add-employee">
       <h1>➕ Add New Employee/Admin</h1>
-      <form action="insert.php" method="post" enctype="multipart/form-data>
+      <form action="insert.php" method="post" enctype="multipart/form-data">
         
         <label for="id">Employee ID:</label>
         <input type="text" id="id" name="id" required>
 
-        <label for="fullname">Full Name:</label>
-        <input type="text" id="fullname" name="fullname" required>
+        <label for="firstname">First Name:</label>
+        <input type="text" id="firstname" name="firstname" required>
+
+       <label for="middlename">Middle Name:</label>
+       <input type="text" id="middlename" name="middlename">
+
+       <label for="lastname">Last Name:</label>
+       <input type="text" id="lastname" name="lastname" required>
 
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required>
@@ -62,18 +68,10 @@
           </label>
         </div>
 
-        <label for="profile">Picture:</label>
-        <input type="file" name="profile" id="profile" accept="image/*" required>
+        <label for="picture">Picture:</label>
+        <input type="file" name="picture" id="picture" accept="image/*" required>
 
         <img id="previewImg" src="#" alt="Preview" style="max-width: 150px; display: none; margin-top: 10px;">
-
-        <div class="wrapper" id="previewWrapper" style="display:none;">
-          <a id="imagePreviewLink" target="_blank">
-            <img id="preview" alt="Image Preview">
-          </a>
-        </div>
-
-
 
         <button type="submit" name="submit">Add</button>
       </form>
@@ -88,13 +86,8 @@
 
     menuBtn.addEventListener('click', () => {
       menuOpen = !menuOpen;
-      if (menuOpen) {
-        menuBtn.src = 'assets/closeIcon.png'; 
-        menuItems.classList.add('menuOpen');
-      } else {
-        menuBtn.src = 'assets/menuIcon.png'; 
-        menuItems.classList.remove('menuOpen');
-      }
+      menuBtn.src = menuOpen ? 'assets/closeIcon.png' : 'assets/menuIcon.png';
+      menuItems.classList.toggle('menuOpen');
     });
 
     menuItems.addEventListener('click', () => {
@@ -105,11 +98,11 @@
 
     function confirmLogout() {
       if (confirm("Are you sure you want to logout?")) {
-          window.location.href = "logout.php";
+        window.location.href = "logout.php";
       }
     }
 
-    document.getElementById('profile').onchange = function (event) {
+    document.getElementById('picture').onchange = function () {
       const [file] = this.files;
       if (file) {
         const preview = document.getElementById('previewImg');
