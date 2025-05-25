@@ -34,8 +34,8 @@ if (isset($_POST['submit'])) {
                                        VALUES ('$imagePath', '$employeeID', '$firstName','$middleName','$lastName', '$email', '$position', '$sex')");
     } elseif ($role == "Admin") {
         $fullName = $firstName . ' ' . $middleName . ' ' . $lastName;
-        $insert = mysqli_query($conn, "INSERT INTO employees (picture, employeeID, fullName, email, position, sex) 
-                                       VALUES ('$imagePath', '$employeeID', '$fullName', '$email', '$position', '$sex')");
+        $insert = mysqli_query($conn, "INSERT INTO admin_ (picture, employeeID, firstName, middleName, lastName, email, position, sex) 
+                                       VALUES ('$imagePath', '$employeeID', '$firstName','$middleName','$lastName', '$email', '$position', '$sex')");
     } else {
         echo "Invalid role selected.";
         exit();

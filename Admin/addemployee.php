@@ -31,14 +31,14 @@
         <label for="id">Employee ID:</label>
         <input type="text" id="id" name="id" required>
 
-        <label for="firstname">First Name:</label>
-        <input type="text" id="firstname" name="firstname" required>
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" required>
 
-       <label for="middlename">Middle Name:</label>
-       <input type="text" id="middlename" name="middlename">
+       <label for="middleName">Middle Name:</label>
+       <input type="text" id="middleName" name="middleName">
 
-       <label for="lastname">Last Name:</label>
-       <input type="text" id="lastname" name="lastname" required>
+       <label for="lastName">Last Name:</label>
+       <input type="text" id="lastName" name="lastName" required>
 
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required>

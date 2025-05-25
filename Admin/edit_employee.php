@@ -3,7 +3,7 @@ include 'db.php';
 
 if (isset($_GET['id'])) {
   $employeeID = $_GET['id'];
-  $query = "SELECT * FROM admin_ WHERE employeeID = '$employeeID'";
+  $query = "SELECT * FROM employeeuser WHERE employeeID = '$employeeID'";
   $result = mysqli_query($conn, $query);
   $row = mysqli_fetch_assoc($result);
 }
@@ -31,7 +31,7 @@ if (isset($_POST['update'])) {
     move_uploaded_file($tmpName, $imagePath);
   }
 
-  $updateQuery = "UPDATE admin_ SET 
+  $updateQuery = "UPDATE employeeuser SET 
     employeeID = '$newEmployeeID',
     firstName = '$firstName', 
     middleName = '$middleName', 

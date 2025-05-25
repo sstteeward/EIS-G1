@@ -3,7 +3,7 @@ include 'db.php';
 
 if (isset($_GET['id'])) {
     $employeeID = $_GET['id'];
-    $deleteQuery = "DELETE FROM admin_ WHERE employeeID = '$employeeID'";
+    $deleteQuery = "DELETE FROM employeeuser WHERE employeeID = '$employeeID'";
 
     if (mysqli_query($conn, $deleteQuery)) {
         header("Location: employee.php");

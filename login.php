@@ -17,7 +17,7 @@ if (isset($_POST['login'])) {
         $stmt = mysqli_prepare(
             $conn,
             // admin table
-            "SELECT 1 FROM employees WHERE email = ? AND employeeID = ? LIMIT 1"
+            "SELECT 1 FROM admin_ WHERE email = ? AND employeeID = ? LIMIT 1"
         );
     } elseif ($role === 'employee') {
     

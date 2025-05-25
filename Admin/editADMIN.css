@@ -61,7 +61,6 @@ body, html {
     display: none;
 }
 
-/* Layout */
 .desktop-layout {
     display: flex;
     height: 100%;

@@ -45,7 +45,7 @@
           <?php
           include 'db.php';
 
-          $sql_admins = "SELECT * FROM employees"; 
+          $sql_admins = "SELECT * FROM admin_"; 
           $result_admins = mysqli_query($conn, $sql_admins);
 
           if (mysqli_num_rows($result_admins) > 0) {
