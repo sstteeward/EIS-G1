@@ -42,7 +42,7 @@ if (isset($_POST['submit'])) {
     }
 
     if ($insert) {
-        header("Location: employee.php");
+        header("Location: employee.php"); 
         exit();
     } else {
         echo "Error inserting: " . mysqli_error($conn);
