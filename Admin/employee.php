@@ -18,12 +18,13 @@
         <li><a href="notifications.php">🔔 Notifications</a></li>
         <li><a href="employee.php">🧑‍💼 Employee</a></li>
         <li><a href="addemployee.php">➕ Add New User</a></li>
+        <li><a href="profile.php">👤 Profile</a></li>
         <li><a href="#" onclick="confirmLogout()">🚪 Logout</a></li>
       </ul>
     </div>
   </nav>
 
-  <div class="main-content">
+   <div class="main-content">
     <!-- Admin List -->
     <section id="admin-list">
       <h1 style="text-align: center;">Admin List</h1>

@@ -1,9 +1,42 @@
-<?php
+<?php 
 session_start();
 include 'db.php';
 
-$sql = "SELECT * FROM admin_ ORDER BY employeeID ASC";
+date_default_timezone_set('Asia/Manila');
+
+$filter = $_GET['filter'] ?? 'all';
+$whereClauses = [];
+
+// Date filters
+if ($filter === 'today') {
+    $whereClauses[] = "DATE(registryDate) = CURDATE()";
+} elseif ($filter === 'week') {
+    $whereClauses[] = "YEARWEEK(registryDate, 1) = YEARWEEK(CURDATE(), 1)";
+}
+
+// Read status filters
+if ($filter === 'read') {
+    $whereClauses[] = "readStatus = 1";
+} elseif ($filter === 'unread') {
+    $whereClauses[] = "readStatus = 0";
+}
+
+// Combine WHERE clauses if any
+$whereClause = '';
+if (!empty($whereClauses)) {
+    $whereClause = 'WHERE ' . implode(' AND ', $whereClauses);
+}
+
+$adminQuery = "SELECT employeeID, firstName, lastName, registryDate, readStatus, 'Admin' AS role FROM admin_ $whereClause";
+$employeeQuery = "SELECT employeeID, firstName, lastName, registryDate, readStatus, 'Employee' AS role FROM employeeuser $whereClause";
+
+$sql = "$adminQuery UNION $employeeQuery ORDER BY registryDate DESC";
 $result = mysqli_query($conn, $sql);
+
+// Helper function to highlight active filter link
+function activeClass($filterName, $currentFilter) {
+    return $filterName === $currentFilter ? 'active' : '';
+}
 ?>
 
 <!DOCTYPE html>
@@ -13,19 +46,20 @@ $result = mysqli_query($conn, $sql);
   <link rel="stylesheet" href="notifications.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="assets/LOGO for title.png">
-  <title>Asian College EIS - Notifications</title>
+  <title>Asian College EIS Admin</title>
 </head>
 <body>
   <nav class="top-nav">
-    <h2>Asian College EIS Dashboard</h2>
+    <h2>Asian College EIS Admin</h2>
     <img src="assets/logo2-removebg-preview.png" alt="Logo">
     <div class="menu">
       <img id="menuBtn" class="menuBtn" src="assets/menuIcon.png" alt="Menu Button" />
       <ul id="menuItems" class="menuItems">
         <li><a href="home.php">🏠 Home</a></li>
         <li><a href="notifications.php">🔔 Notifications</a></li>
-        <li><a href="employee.php">👨‍💼 Employee</a></li>
-        <li><a href="addemployee.php">➕ Add New Employee</a></li>
+        <li><a href="employee.php">🧑‍💼 Employee</a></li>
+        <li><a href="addemployee.php">➕ Add New User</a></li>
+        <li><a href="profile.php">👤 Profile</a></li>
         <li><a href="#" onclick="confirmLogout()">🚪 Logout</a></li>
       </ul>
     </div>
@@ -33,34 +67,49 @@ $result = mysqli_query($conn, $sql);
 
   <div class="notification-container">
     <h1>🔔 Notifications</h1>
+
+    <div class="filter-options">
+      <a class="<?php echo activeClass('all', $filter); ?>" href="notifications.php?filter=all">📅 All</a>
+      <a class="<?php echo activeClass('today', $filter); ?>" href="notifications.php?filter=today">🟢 Today</a>
+      <a class="<?php echo activeClass('week', $filter); ?>" href="notifications.php?filter=week">🔵 This Week</a>
+      <a class="<?php echo activeClass('read', $filter); ?>" href="notifications.php?filter=read">✅ Read</a>
+      <a class="<?php echo activeClass('unread', $filter); ?>" href="notifications.php?filter=unread">🔴 Unread</a>
+    </div>
+
     <div class="notification-list">
       <?php while($row = mysqli_fetch_assoc($result)): ?>
-  <div class="notification-item">
-    <p><strong>New Admin Added</strong></p>
-    <p><?php echo htmlspecialchars($row['firstName'] . ' ' . $row['lastName']); ?> has been added as Admin.</p>
-    <small>
-      <?php 
-        date_default_timezone_set('Asia/Manila');
-        echo isset($row['employeeID']) 
-          ? date('m/d/Y g:i:A', strtotime($row['registryDate'] ?? 'now'))
-          : 'Date unknown'; 
-      ?>
-    </small>
-  </div>
-<?php endwhile; ?>
+        <div class="notification-item <?php echo $row['readStatus'] ? 'read' : 'unread'; ?>">
+          <p><strong>New <?php echo htmlspecialchars($row['role']); ?> Added</strong></p>
+          <p><?php echo htmlspecialchars($row['firstName'] . ' ' . $row['lastName']); ?> has been added as <?php echo htmlspecialchars($row['role']); ?>.</p>
+          <small><?php echo date('m/d/Y g:i A', strtotime($row['registryDate'])); ?></small>
 
+          <form method="POST" action="markNotification.php?filter=<?php echo urlencode($filter); ?>" style="margin-top: 5px;">
+            <input type="hidden" name="employeeID" value="<?php echo $row['employeeID']; ?>">
+            <input type="hidden" name="role" value="<?php echo $row['role']; ?>">
+            <button type="submit" name="toggleRead" class="read-toggle-btn">
+              <?php echo $row['readStatus'] ? 'Mark as Unread' : 'Mark as Read'; ?>
+            </button>
+          </form>
+        </div>
+      <?php endwhile; ?>
     </div>
   </div>
 
   <script>
     const menuBtn = document.getElementById('menuBtn');
     const menuItems = document.getElementById('menuItems');
+
     let menuOpen = false;
 
     menuBtn.addEventListener('click', () => {
       menuOpen = !menuOpen;
-      menuBtn.src = menuOpen ? 'assets/closeIcon.png' : 'assets/menuIcon.png';
-      menuItems.classList.toggle('menuOpen', menuOpen);
+      if (menuOpen) {
+        menuBtn.src = 'assets/closeIcon.png'; 
+        menuItems.classList.add('menuOpen');
+      } else {
+        menuBtn.src = 'assets/menuIcon.png'; 
+        menuItems.classList.remove('menuOpen');
+      }
     });
 
     menuItems.addEventListener('click', () => {

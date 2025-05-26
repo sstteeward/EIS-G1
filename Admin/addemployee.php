@@ -18,6 +18,7 @@
         <li><a href="notifications.php">🔔 Notifications</a></li>
         <li><a href="employee.php">👨‍💼 Employee</a></li>
         <li><a href="addemployee.php">➕ Add New Employee</a></li>
+        <li><a href="profile.php">👤 Profile</a></li>
         <li><a href="#" onclick="confirmLogout()">🚪 Logout</a></li>
       </ul>
     </div>
