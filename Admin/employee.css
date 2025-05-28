@@ -8,7 +8,6 @@ body, html {
     height: 100%;
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
-    margin: 0;
 }
 
 .top-nav {
@@ -35,19 +34,18 @@ body, html {
     font-size: 24px;
 }
 
-.menuItems {
+.top-nav ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     display: flex;
-    border-right: 2px solid #fff;
 }
 
-.menuItems li {
-    margin-right: 30px;
+.top-nav ul li {
+    margin-left: 30px;
 }
 
-.menuItems li a {
+.top-nav ul li a {
     color: white;
     text-decoration: none;
     padding: 10px 15px;
@@ -55,8 +53,47 @@ body, html {
     transition: background-color 0.3s;
 }
 
-.menuItems li a:hover {
+.top-nav ul li a:hover {
     background-color: #e11d48;
+}
+
+.menuBtn {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .top-nav ul {
+        display: none;
+    }
+
+    .menuBtn {
+        display: block;
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+    }
+
+    .menuItems.menuOpen {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        right: 20px;
+        background-color: #1e3a8a;
+        border-radius: 8px;
+        overflow: hidden;
+        padding: 10px 0;
+        z-index: 999;
+    }
+
+    .menuItems li {
+        margin: 10px 0;
+    }
+
+    .menuItems li a {
+        display: block;
+        padding: 10px 20px;
+    }
 }
 
 .action-btn {
@@ -147,16 +184,6 @@ h1 {
     margin: 0 5px;
 }
 
-@media screen and (max-width: 767px) {
-    .menuItems {
-        display: none;
-    }
-
-    .menuBtn {
-        display: block;
-        cursor: pointer;
-    }
-
     #employee-list {
         padding: 15px; 
         margin-top: 60px; 
@@ -177,65 +204,3 @@ h1 {
         background-color: #1e3a8a;
         color: white;
     }
-
-    .top-nav {
-        padding: 15px;
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .top-nav h2 {
-        font-size: 18px;
-    }
-
-    .menuItems {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 70px;
-        right: 0;
-        background-color: #1e3a8a;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-        padding: 10px 0;
-    }
-
-    .menuOpen {
-        display: block;
-    }
-
-    .menuItems li {
-        text-align: center;
-        margin: 10px 0;
-    }
-
-    .menuItems li a {
-        padding: 12px;
-        font-size: 16px;
-    }
-}
-
-@media screen and (min-width: 768px) {
-    .menuItems {
-        display: flex;
-    }
-
-    .menuBtn {
-        display: none;
-    }
-
-    #employee-list {
-        padding: 20px;
-    }
-
-    .employee-table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    .employee-table th, .employee-table td {
-        padding: 12px 15px;
-        text-align: center;
-        border: 1px solid #ddd;
-    }
-}

@@ -1,60 +1,72 @@
 <?php
 session_start();
-session_destroy();
+session_destroy(); // Clear session on visiting login
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="index.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="assets/LOGO for title.png">
-  <title>Asian College EIS - Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <link rel="icon" href="assets\LOGO for title.png">
+    <link rel="icon" href="LOGO for title.png">
+    <title>Asian College EIS</title>
 </head>
-
 <body>
-  <div class="container">
-    <header>
-      <div class="logo">
-        <img src="assets/logo.png" alt="Asian College Logo">
-      </div>
-      <div class="title">
-        <h1>Asian College EIS</h1>
-        <p>Employee Information System</p>
-      </div>
-    </header>
+    <div>
+        <header>
+            <div class="logo">
+                <img src="assets\logo.png" alt="Asian College Logo">
+            </div>
+            <div class="title">
+                <h1>Asian College EIS</h1>
+            </div>
+        </header>
 
-    <main class="login-section">
-      <form action="login.php" method="post" class="login-form">
-        <h2>Login</h2>
-
-        <div class="form-group">
-          <label for="role">Role</label>
-          <select name="role" id="role" required>
-            <option value="" disabled selected>Select your role</option>
-            <option value="admin">Admin</option>
-            <option value="employee">Employee</option>
-          </select>
+        <div class="role-selection">
+            <h2>Select Your Role</h2>
+            <select id="role-select">
+                <option value="" disabled selected>Select Role</option>
+                <option value="admin">Admin</option>
+                <option value="employee">Employee</option>
+            </select>
         </div>
 
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" name="email" id="email" required placeholder="Enter your email">
-        </div>
+        <div class="login hidden" id="login-form">
+            <form action="login.php" method="post">
 
-        <div class="form-group">
-          <label for="id">Employee ID</label>
-          <input type="text" name="id" id="id" required placeholder="Enter your ID" maxlength="20">
-        </div>
+                <input type="hidden" name="role" id="role-input">
 
-        <div class="form-group">
-          <button type="submit" name="login">🔐 Login</button>
+                <div class="login-title">
+                    <h2>Login</h2>
+                </div>
+                <div class="login-input">
+                    <input type="text" name="email" placeholder="Email" required>
+                </div>
+                <div class="login-input">
+                    <input type="text" name="id" placeholder="ID" maxlength="20" required>
+                </div>
+                <div class="login-button">
+                    <button type="submit" name="login">Login</button>
+                </div>
+            </form>
         </div>
-      </form>
-    </main>
-  </div>
+    </div>
+
+    <script>
+        const roleSelect = document.getElementById('role-select');
+        const loginForm = document.getElementById('login-form');
+        const roleInput = document.getElementById('role-input');
+
+        roleSelect.addEventListener('change', function () {
+            const selectedRole = this.value;
+            if (selectedRole) {
+                roleInput.value = selectedRole;
+                loginForm.classList.remove('hidden');
+            }
+        });
+    </script>
 </body>
-
 </html>

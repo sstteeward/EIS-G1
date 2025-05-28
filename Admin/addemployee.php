@@ -1,16 +1,24 @@
+<?php
+session_start();
+if (!isset($_SESSION['email']) || $_SESSION['role'] !== 'admin') {
+    header("Location: ../index.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="style.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="assets/LOGO for title.png">
-  <title>Asian College EIS Admin</title>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="assets/LOGO for title.png" />
+  <title>Asian College EIS Admin - Add Employee/Admin</title>
 </head>
 <body>
   <nav class="top-nav">
     <h2>Asian College EIS Admin</h2>
-    <img src="assets/logo2-removebg-preview.png" alt="Logo">
+    <img src="assets/logo2-removebg-preview.png" alt="Logo" />
     <div class="menu">
       <img id="menuBtn" class="menuBtn" src="assets/menuIcon.png" alt="Menu Button" />
       <ul id="menuItems" class="menuItems">
@@ -19,7 +27,6 @@
         <li><a href="employee.php">👨‍💼 Employee</a></li>
         <li><a href="addemployee.php">➕ Add New Employee</a></li>
         <li><a href="profile.php">👤 Profile</a></li>
-        <li><a href="#" onclick="confirmLogout()">🚪 Logout</a></li>
       </ul>
     </div>
   </nav>
@@ -27,25 +34,24 @@
   <div class="main-content">
     <section id="add-employee">
       <h1>➕ Add New Employee/Admin</h1>
-      <form action="insert.php" method="post" enctype="multipart/form-data">
-        
+      <form action="insert.php" method="post">
         <label for="id">Employee ID:</label>
-        <input type="text" id="id" name="id" required>
+        <input type="text" id="id" name="id" required />
 
         <label for="firstName">First Name:</label>
-        <input type="text" id="firstName" name="firstName" required>
+        <input type="text" id="firstName" name="firstName" required />
 
-       <label for="middleName">Middle Name:</label>
-       <input type="text" id="middleName" name="middleName">
+        <label for="middleName">Middle Name:</label>
+        <input type="text" id="middleName" name="middleName" />
 
-       <label for="lastName">Last Name:</label>
-       <input type="text" id="lastName" name="lastName" required>
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" required />
 
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
+        <input type="email" id="email" name="email" required />
 
         <label for="position">Position:</label>
-        <input type="text" id="position" name="position" required>
+        <input type="text" id="position" name="position" required />
 
         <label for="role">Role:</label>
         <select id="role" name="role" required>
@@ -57,22 +63,17 @@
         <label>Sex:</label>
         <div class="radio-group">
           <label class="radio-option">
-            <input type="radio" id="male" name="sex" value="male" required>
+            <input type="radio" id="male" name="sex" value="male" required />
             <span class="radio-custom"></span>
             <span class="radio-text">Male</span>
           </label>
-        
+
           <label class="radio-option">
-            <input type="radio" id="female" name="sex" value="female" required>
+            <input type="radio" id="female" name="sex" value="female" required />
             <span class="radio-custom"></span>
             <span class="radio-text">Female</span>
           </label>
         </div>
-
-        <label for="picture">Picture:</label>
-        <input type="file" name="picture" id="picture" accept="image/*" required>
-
-        <img id="previewImg" src="#" alt="Preview" style="max-width: 150px; display: none; margin-top: 10px;">
 
         <button type="submit" name="submit">Add</button>
       </form>
@@ -82,7 +83,6 @@
   <script>
     const menuBtn = document.getElementById('menuBtn');
     const menuItems = document.getElementById('menuItems');
-
     let menuOpen = false;
 
     menuBtn.addEventListener('click', () => {
@@ -102,15 +102,6 @@
         window.location.href = "logout.php";
       }
     }
-
-    document.getElementById('picture').onchange = function () {
-      const [file] = this.files;
-      if (file) {
-        const preview = document.getElementById('previewImg');
-        preview.src = URL.createObjectURL(file);
-        preview.style.display = 'block';
-      }
-    };
   </script>
 </body>
 </html>

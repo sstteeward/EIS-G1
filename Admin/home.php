@@ -2,33 +2,25 @@
 session_start();
 include 'db.php';
 
-// Set timezone
-date_default_timezone_set('Asia/Manila');
-
-// Get email from session
-$email = $_SESSION['email'] ?? '';
-
-// Fetch name from database
-$name = '';
-if (!empty($email)) {
-    $query = "SELECT firstName FROM admin_ WHERE email = ? 
-              UNION 
-              SELECT firstName FROM employeeuser WHERE email = ?";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("ss", $email, $email);
-    $stmt->execute();
-    $stmt->bind_result($firstName);
-    if ($stmt->fetch()) {
-        $name = $firstName;
-    }
-    $stmt->close();
+if (!isset($_SESSION['email']) || $_SESSION['role'] !== 'admin') {
+    header("Location: ../index.php");
+    exit();
 }
 
-// Get total stats
+date_default_timezone_set('Asia/Manila');
+$email = $_SESSION['email'];
+
+$query = "SELECT firstName FROM admin_ WHERE email = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$stmt->bind_result($firstName);
+$name = $stmt->fetch() ? $firstName : '';
+$stmt->close();
+
 $totalAdmins = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS total FROM admin_"))['total'];
 $totalEmployees = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS total FROM employeeuser"))['total'];
 
-// Recent activity (admin + employee)
 $recentQuery = "
     SELECT firstName, lastName, registryDate, 'Admin' AS role FROM admin_
     UNION
@@ -38,7 +30,6 @@ $recentQuery = "
 ";
 $recentResult = mysqli_query($conn, $recentQuery);
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,7 +51,6 @@ $recentResult = mysqli_query($conn, $recentQuery);
         <li><a href="employee.php">🧑‍💼 Employee</a></li>
         <li><a href="addemployee.php">➕ Add New User</a></li>
         <li><a href="profile.php">👤 Profile</a></li>
-        <li><a href="#" onclick="confirmLogout()">🚪 Logout</a></li>
       </ul>
     </div>
   </nav>

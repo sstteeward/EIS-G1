@@ -114,11 +114,6 @@ if (isset($_POST['update'])) {
         </label>
       </div>
       
-      <label for="picture">Profile Picture:</label>
-      <input type="file" name="picture" id="profile" accept="image/*"><br>
-      
-      <img src="<?= htmlspecialchars($row['picture']) ?>" alt="Current Profile Image" style="width: 50px; height: 50px; border-radius: 50%; margin-top: 10px;"><br>
-
       <button type="submit" name="update">Update Admin</button>
     </form>
   </section>

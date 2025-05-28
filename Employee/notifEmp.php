@@ -43,23 +43,22 @@ function activeClass($filterName, $currentFilter) {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="notifications.css">
+  <link rel="stylesheet" href="notifEmp.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="assets/LOGO for title.png">
-  <title>Asian College EIS Admin</title>
+  <title>Asian College EIS</title>
 </head>
 <body>
   <nav class="top-nav">
-    <h2>Asian College EIS Admin</h2>
+    <h2>Asian College EIS Notifications</h2>
     <img src="assets/logo2-removebg-preview.png" alt="Logo">
     <div class="menu">
       <img id="menuBtn" class="menuBtn" src="assets/menuIcon.png" alt="Menu Button" />
       <ul id="menuItems" class="menuItems">
-        <li><a href="home.php">🏠 Home</a></li>
-        <li><a href="notifications.php">🔔 Notifications</a></li>
-        <li><a href="employee.php">🧑‍💼 Employee</a></li>
-        <li><a href="addemployee.php">➕ Add New User</a></li>
-        <li><a href="profile.php">👤 Profile</a></li>
+        <li><a href="homeemployee.php">🏠 Home</a></li>
+        <li><a href="notifEmp.php">🔔 Notifications</a></li>
+        <li><a href="#">🧑‍💼 Employee</a></li>
+        <li><a href="profileEmp.php">👤 Profile</a></li>
       </ul>
     </div>
   </nav>

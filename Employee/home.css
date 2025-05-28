@@ -1,168 +1,98 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-body, html {
-    height: 100%;
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
+body,
+html {
+  height: 100%;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
 }
 
 .top-nav {
-    background-color: #1e3a8a;
-    color: white;
-    padding: 15px 30px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #1e3a8a;
+  color: white;
+  padding: 15px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .top-nav img {
-    width: 50px;
-    height: auto;
+  width: 50px;
+  height: auto;
 }
 
 .top-nav h2 {
-    margin: 0;
-    font-size: 24px;
+  margin: 0;
+  font-size: 24px;
 }
 
-/* Menu items */
-.menuItems {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
+.top-nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
 }
 
-.menuItems li {
-    margin-left: 30px;
+.top-nav ul li {
+  margin-left: 30px;
 }
 
-.menuItems li a {
-    color: white;
-    text-decoration: none;
-    padding: 10px 15px;
-    border-radius: 4px;
-    transition: background-color 0.3s;
+.top-nav ul li a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
 }
 
-.menuItems li a:hover {
-    background-color: #e11d48;
+.top-nav ul li a:hover {
+  background-color: #e11d48;
 }
 
-h1 {
-    margin-top: 100px; 
-    text-align: center;
-    font-size: 30px;
-    font-weight: 600;
-    color: #333;
-}
-
-@media screen and (max-width: 767px) {
-    .menuItems {
-        display: none;
-    }
-
-    .menuBtn {
-        display: block;
-        cursor: pointer;
-    }
-
-    .top-nav {
-        padding: 15px;
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .top-nav h2 {
-        font-size: 18px;
-    }
-
-    .menuItems {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 70px;
-        right: 0; 
-        background-color: #1e3a8a;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-        padding: 10px 0;
-    }
-
-    .menuOpen {
-        display: block;
-    }
-
-    .menuItems li {
-        text-align: center;
-        margin: 10px 0;
-    }
-
-    .menuItems li a {
-        padding: 12px;
-        font-size: 16px;
-    }
-}
-
-@media screen and (min-width: 768px) {
-    .menuItems {
-        display: flex;
-    }
-
-    .menuBtn {
-        display: none;
-    }
-
-    h1 {
-        font-size: 35px;
-    }
-}
-
-body {
-    padding-top: 70px;
+.menuBtn {
+  display: none;
 }
 
 @media (max-width: 768px) {
-    .top-nav ul {
-        display: none;
-    }
+  .top-nav ul {
+    display: none;
+  }
 
-    .menuBtn {
-        display: block;
-        cursor: pointer;
-        width: 40px;
-        height: 40px;
-    }
+  .menuBtn {
+    display: block;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+  }
 
-    .menuItems.menuOpen {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: 70px;
-        width: 50%;
-        background-color: #1e3a8a;
-        border-radius: 8px;
-        overflow: hidden;
-        padding: 10px 0;
-        z-index: 999;
-    }
+  .menuItems.menuOpen {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 70px;
+    right: 20px;
+    background-color: #1e3a8a;
+    border-radius: 8px;
+    overflow: hidden;
+    padding: 10px 0;
+    z-index: 999;
+  }
 
-    .menuItems li {
-        margin: 10px 0;
-    }
+  .menuItems li {
+    margin: 10px 0;
+  }
 
-    .menuItems li a {
-        display: block;
-        padding: 10px 20px;
-    }
+  .menuItems li a {
+    display: block;
+    padding: 10px 20px;
+  }
 }

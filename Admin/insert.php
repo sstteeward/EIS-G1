@@ -1,53 +1,84 @@
-<?php 
+<?php
+session_start();
 include 'db.php';
 
-if (isset($_POST['submit'])) {
-    $imagePath = null;
-
-    if (isset($_FILES['picture']) && $_FILES['picture']['error'] === UPLOAD_ERR_OK) {
-        $imgName = basename($_FILES['picture']['name']);
-        $tmpName = $_FILES['picture']['tmp_name'];
-        $uploadDir = "uploads/";
-        $imagePath = $uploadDir . time() . "_" . $imgName;
-
-        if (!is_dir($uploadDir)) {
-            mkdir($uploadDir, 0777, true);
-        }
-
-        if (!move_uploaded_file($tmpName, $imagePath)) {
-            echo "Failed to upload the image.";
-            exit();
-        }
-    }
-
-    $employeeID = $_POST['id'];
-    $firstName = ucfirst(strtolower($_POST['firstName']));
-    $middleName = ucfirst(strtolower($_POST['middleName']));
-    $lastName = ucfirst(strtolower($_POST['lastName']));
-    $email = $_POST['email'];
-    $position = ucfirst(strtolower($_POST['position']));
-    $sex = $_POST['sex'];
-    $role = $_POST['role'];
-
-    if ($role == "Employee") {
-        $insert = mysqli_query($conn, "INSERT INTO employeeuser (picture, employeeID, firstName, middleName, lastName, email, position, sex) 
-                                       VALUES ('$imagePath', '$employeeID', '$firstName','$middleName','$lastName', '$email', '$position', '$sex')");
-    } elseif ($role == "Admin") {
-        $fullName = $firstName . ' ' . $middleName . ' ' . $lastName;
-        $insert = mysqli_query($conn, "INSERT INTO admin_ (picture, employeeID, firstName, middleName, lastName, email, position, sex) 
-                                       VALUES ('$imagePath', '$employeeID', '$firstName','$middleName','$lastName', '$email', '$position', '$sex')");
-    } else {
-        echo "Invalid role selected.";
-        exit();
-    }
-
-    if ($insert) {
-        header("Location: employee.php"); 
-        exit();
-    } else {
-        echo "Error inserting: " . mysqli_error($conn);
-    }
-} else {
-    echo "Invalid form submission.";
+// Only allow admins to add users
+if (!isset($_SESSION['email']) || $_SESSION['role'] !== 'admin') {
+    header("Location: ../index.php");
+    exit();
 }
-?>
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
+    // Sanitize and trim inputs
+    $id = trim($_POST['id'] ?? '');
+    $firstName = trim($_POST['firstName'] ?? '');
+    $middleName = trim($_POST['middleName'] ?? '');
+    $lastName = trim($_POST['lastName'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $position = trim($_POST['position'] ?? '');
+    $role = trim($_POST['role'] ?? '');
+    $sex = trim($_POST['sex'] ?? '');
+
+    // Validate required fields
+    if (empty($id) || empty($firstName) || empty($lastName) || empty($email) || empty($position) || empty($role) || empty($sex)) {
+        alertAndRedirect('Please fill all required fields.');
+    }
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        alertAndRedirect('Invalid email address.');
+    }
+
+    // Format names (capitalize and remove extra spaces)
+    $firstName = ucwords(strtolower(preg_replace('/\s+/', ' ', $firstName)));
+    $middleName = ucwords(strtolower(preg_replace('/\s+/', ' ', $middleName)));
+    $lastName = ucwords(strtolower(preg_replace('/\s+/', ' ', $lastName)));
+
+    // Determine target table based on role
+    $table = strtolower($role) === 'admin' ? 'admin_' : 'employeeuser';
+
+    // Check if employeeID or email already exists in target table
+    $checkSql = "SELECT 1 FROM $table WHERE employeeID = ? OR email = ? LIMIT 1";
+    $stmtCheck = $conn->prepare($checkSql);
+    $stmtCheck->bind_param("ss", $id, $email);
+    $stmtCheck->execute();
+    $stmtCheck->store_result();
+
+    if ($stmtCheck->num_rows > 0) {
+        alertAndRedirect("Employee ID or Email already exists in $role table.");
+    }
+    $stmtCheck->close();
+
+    // Get current admin's employeeID for 'addedBy'
+    $adminEmail = $_SESSION['email'];
+    $stmtAdmin = $conn->prepare("SELECT employeeID FROM admin_ WHERE email = ? LIMIT 1");
+    $stmtAdmin->bind_param("s", $adminEmail);
+    $stmtAdmin->execute();
+    $stmtAdmin->bind_result($addedBy);
+    $stmtAdmin->fetch();
+    $stmtAdmin->close();
+
+    if (!$addedBy) {
+        alertAndRedirect("Could not determine admin who is adding this user.");
+    }
+
+    // Insert new user with current timestamp for registryDate
+    $insertSql = "INSERT INTO $table (employeeID, firstName, middleName, lastName, email, position, sex, registryDate, addedBy) VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), ?)";
+    $stmtInsert = $conn->prepare($insertSql);
+    $stmtInsert->bind_param("sssssssi", $id, $firstName, $middleName, $lastName, $email, $position, $sex, $addedBy);
+
+    if ($stmtInsert->execute()) {
+        echo "<script>alert('New $role added successfully!'); window.location.href='addemployee.php';</script>";
+    } else {
+        alertAndRedirect("Error adding new $role: " . $stmtInsert->error);
+    }
+    $stmtInsert->close();
+} else {
+    header("Location: addemployee.php");
+    exit();
+}
+
+function alertAndRedirect($message) {
+    $msg = htmlspecialchars($message, ENT_QUOTES);
+    echo "<script>alert('$msg'); window.history.back();</script>";
+    exit();
+}
