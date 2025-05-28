@@ -1,22 +1,34 @@
 <?php
 include 'db.php';
+if (isset($_GET['employeeID'])) {
+  $employeeID = mysqli_real_escape_string($conn, $_GET['employeeID']);
 
-$query = "SELECT employeeID, firstName, middleName, lastName, email, position, status FROM employeeuser";
-$result = mysqli_query($conn, $query);
+  $query = "SELECT * FROM employeeuser WHERE employeeID = '$employeeID'";
+  $result = mysqli_query($conn, $query);
+
+  if ($row = mysqli_fetch_assoc($result)) {
+    $fullName = ucwords($row['firstName'] . ' ' . $row['middleName'] . ' ' . $row['lastName']);
+  } else {
+    echo "Employee not found.";
+    exit;
+  }
+} else {
+  echo "No employee ID provided.";
+  exit;
+}
 ?>
-
 
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <link rel="stylesheet" href="employee.css" />
+  <link rel="stylesheet" href="viewProf.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" href="assets/LOGO for title.png" />
   <title>Asian College EIS</title>
 </head>
 <body>
   <nav class="top-nav">
-    <h2>Asian College EIS Employee</h2>
+    <h2>Asian College EIS View</h2>
     <img src="assets/logo2-removebg-preview.png" alt="Logo" />
     <div class="menu">
       <img id="menuBtn" class="menuBtn" src="assets/menuIcon.png" alt="Menu Button" role="button" aria-label="Toggle navigation menu" />
@@ -24,39 +36,22 @@ $result = mysqli_query($conn, $query);
         <li><a href="homeemployee.php">🏠 Home</a></li>
         <li><a href="notifEmp.php">🔔 Notifications</a></li>
         <li><a href="employee.php">🧑‍💼 Employee</a></li>
-        <li><a href="profileEmp.php">👤 Profile</a></li>
+        <li><a href="profile.php">👤 Profile</a></li>
       </ul>
     </div>
 </nav>
 
-<h2>Employee Directory</h2>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Employee ID</th>
-        <th>Full Name</th>
-        <th>Email</th>
-        <th>Position</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <?php while ($row = mysqli_fetch_assoc($result)) :
-        $fullName = ucwords($row['firstName'] . ' ' . $row['middleName'] . ' ' . $row['lastName']);
-      ?>
-        <tr>
-          <td><?php echo htmlspecialchars($row['employeeID']); ?></td>
-          <td><a class="name-link" href="viewProfile.php?employeeID=<?php echo $row['employeeID']; ?>">
-            <?php echo $fullName; ?>
-          </a></td>
-          <td><?php echo htmlspecialchars($row['email']); ?></td>
-          <td><?php echo htmlspecialchars($row['position']); ?></td>
-          <td><?php echo htmlspecialchars($row['status']); ?></td>
-        </tr>
-      <?php endwhile; ?>
-    </tbody>
-  </table>
+<h2><?php echo $fullName; ?>'s Profile</h2>
+  <div class="profile-container">
+    <p><strong>Employee ID:</strong> <?php echo $row['employeeID']; ?></p>
+    <p><strong>Email:</strong> <?php echo $row['email']; ?></p>
+    <p><strong>Position:</strong> <?php echo $row['position']; ?></p>
+    <p><strong>Sex:</strong> <?php echo $row['sex']; ?></p>
+    <p><strong>Registered On:</strong> <?php echo $row['registryDate']; ?></p>
+    <p><strong>Status:</strong> <?php echo $row['status']; ?></p>
+    <p><strong>Contact:</strong> <?php echo $row['contactNumber']; ?></p>
+    <p><strong>Address:</strong> <?php echo $row['address']; ?></p>
+  </div>
 
   <script>
     const menuBtn = document.getElementById('menuBtn');

@@ -57,7 +57,7 @@ function activeClass($filterName, $currentFilter) {
       <ul id="menuItems" class="menuItems">
         <li><a href="homeemployee.php">🏠 Home</a></li>
         <li><a href="notifEmp.php">🔔 Notifications</a></li>
-        <li><a href="#">🧑‍💼 Employee</a></li>
+        <li><a href="employee.php">🧑‍💼 Employee</a></li>
         <li><a href="profileEmp.php">👤 Profile</a></li>
       </ul>
     </div>
