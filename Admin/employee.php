@@ -33,7 +33,7 @@ function generateLetterAvatar($letter) {
 </head>
 <body>
   <nav class="top-nav">
-    <h2>Asian College EIS Admin</h2>
+    <h2>Asian College EIS Employee</h2>
     <img src="assets/logo2-removebg-preview.png" alt="Logo" />
     <div class="menu">
       <img id="menuBtn" class="menuBtn" src="assets/menuIcon.png" alt="Menu Button" />
