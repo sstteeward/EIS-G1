@@ -10,7 +10,6 @@ if (!isset($_SESSION['email']) || !isset($_SESSION['role'])) {
 $email = $_SESSION['email'];
 $role = $_SESSION['role'];
 
-// Validate role and set table
 $allowed_roles = ['admin', 'employee'];
 if (!in_array($role, $allowed_roles)) {
     header("Location: logout.php");
@@ -19,7 +18,6 @@ if (!in_array($role, $allowed_roles)) {
 
 $table = $role === 'admin' ? 'admin_' : 'employeeuser';
 
-// Fetch user data
 $query = "SELECT * FROM $table WHERE email = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("s", $email);
@@ -28,7 +26,6 @@ $result = $stmt->get_result();
 $user = $result->fetch_assoc();
 $stmt->close();
 
-// Clean and format
 $fields = ['firstName', 'middleName', 'lastName', 'email', 'employeeID', 'role', 'position', 'registryDate', 'status', 'contactNumber', 'address', 'picture'];
 $completed = 0;
 
@@ -46,11 +43,9 @@ foreach ($fields as $field) {
 
 $completion = round(($completed / count($fields)) * 100);
 
-// Handle profile picture
 $filename = !empty($user['picture']) ? $user['picture'] : 'default.png';
 $profilePic = 'uploads/' . basename($filename);
 
-// Format full name (skip middleName if empty)
 $fullName = trim($user['firstName'] . ' ' . ($user['middleName'] ? $user['middleName'] . ' ' : '') . $user['lastName']);
 ?>
 
@@ -65,7 +60,7 @@ $fullName = trim($user['firstName'] . ' ' . ($user['middleName'] ? $user['middle
 </head>
 <body>
   <nav class="top-nav">
-    <h2>Asian College EIS Admin</h2>
+    <h2>Asian College EIS Admin Profile</h2>
     <img src="assets/logo2-removebg-preview.png" alt="Logo" />
     <div class="menu">
       <img id="menuBtn" class="menuBtn" src="assets/menuIcon.png" alt="Menu Button" role="button" aria-label="Toggle navigation menu" />

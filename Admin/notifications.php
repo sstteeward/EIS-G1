@@ -7,21 +7,18 @@ date_default_timezone_set('Asia/Manila');
 $filter = $_GET['filter'] ?? 'all';
 $whereClauses = [];
 
-// Date filters
 if ($filter === 'today') {
     $whereClauses[] = "DATE(registryDate) = CURDATE()";
 } elseif ($filter === 'week') {
     $whereClauses[] = "YEARWEEK(registryDate, 1) = YEARWEEK(CURDATE(), 1)";
 }
 
-// Read status filters
 if ($filter === 'read') {
     $whereClauses[] = "readStatus = 1";
 } elseif ($filter === 'unread') {
     $whereClauses[] = "readStatus = 0";
 }
 
-// Combine WHERE clauses if any
 $whereClause = '';
 if (!empty($whereClauses)) {
     $whereClause = 'WHERE ' . implode(' AND ', $whereClauses);
@@ -33,7 +30,6 @@ $employeeQuery = "SELECT employeeID, firstName, lastName, registryDate, readStat
 $sql = "$adminQuery UNION $employeeQuery ORDER BY registryDate DESC";
 $result = mysqli_query($conn, $sql);
 
-// Helper function to highlight active filter link
 function activeClass($filterName, $currentFilter) {
     return $filterName === $currentFilter ? 'active' : '';
 }
@@ -50,7 +46,7 @@ function activeClass($filterName, $currentFilter) {
 </head>
 <body>
   <nav class="top-nav">
-    <h2>Asian College EIS Admin</h2>
+    <h2>Asian College EIS Admin Notifications</h2>
     <img src="assets/logo2-removebg-preview.png" alt="Logo">
     <div class="menu">
       <img id="menuBtn" class="menuBtn" src="assets/menuIcon.png" alt="Menu Button" />
