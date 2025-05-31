@@ -27,7 +27,7 @@ function generateLetterAvatar($letter) {
   <link rel="stylesheet" href="employee.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" href="assets/LOGO for title.png" />
-  <title>Asian College EIS Admin - Employee List</title>
+  <title>Asian College EIS</title>
 </head>
 <body>
   <nav class="top-nav">
@@ -74,7 +74,7 @@ function generateLetterAvatar($letter) {
                   // Show image or letter avatar for Admin
                   echo "<td>";
                   if (!empty($row['picture']) && file_exists('uploads/' . $row['picture'])) {
-                      echo "<img src='uploads/" . htmlspecialchars($row['picture']) . "' alt='Profile' style='width:50px; height:50px; border-radius:50%; object-fit:cover;'>";
+                      echo "<img src='..uploads/" . htmlspecialchars($row['picture']) . "' alt='Profile' style='width:50px; height:50px; border-radius:50%; object-fit:cover;'>";
                   } else {
                       echo generateLetterAvatar($row['firstName'][0]);
                   }
@@ -123,8 +123,8 @@ function generateLetterAvatar($letter) {
 
                   // Show image or letter avatar for Employee
                   echo "<td>";
-                  if (!empty($row['picture']) && file_exists('uploads/' . $row['picture'])) {
-                      echo "<img src='uploads/" . htmlspecialchars($row['picture']) . "' alt='Profile' style='width:50px; height:50px; border-radius:50%; object-fit:cover;'>";
+                  if (!empty($row['picture']) && file_exists('..uploads/' . $row['picture'])) {
+                      echo "<img src='..uploads/" . htmlspecialchars($row['picture']) . "' alt='Profile' style='width:50px; height:50px; border-radius:50%; object-fit:cover;'>";
                   } else {
                       echo generateLetterAvatar($row['firstName'][0]);
                   }
