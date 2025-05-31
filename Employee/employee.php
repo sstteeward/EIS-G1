@@ -73,7 +73,7 @@ function generateLetterAvatar($letter) {
                   
                   // Show image or letter avatar for Admin
                   echo "<td>";
-                  if (!empty($row['picture']) && file_exists('uploads/' . $row['picture'])) {
+                  if (!empty($row['picture']) && file_exists('uploads' . $row['picture'])) {
                       echo "<img src='..uploads/" . htmlspecialchars($row['picture']) . "' alt='Profile' style='width:50px; height:50px; border-radius:50%; object-fit:cover;'>";
                   } else {
                       echo generateLetterAvatar($row['firstName'][0]);
@@ -123,7 +123,7 @@ function generateLetterAvatar($letter) {
 
                   // Show image or letter avatar for Employee
                   echo "<td>";
-                  if (!empty($row['picture']) && file_exists('..uploads/' . $row['picture'])) {
+                  if (!empty($row['picture']) && file_exists('uploads' . $row['picture'])) {
                       echo "<img src='..uploads/" . htmlspecialchars($row['picture']) . "' alt='Profile' style='width:50px; height:50px; border-radius:50%; object-fit:cover;'>";
                   } else {
                       echo generateLetterAvatar($row['firstName'][0]);

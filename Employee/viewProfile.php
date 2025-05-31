@@ -44,7 +44,7 @@ foreach ($fields as $field) {
 $completion = round(($completed / count($fields)) * 100);
 
 $filename = !empty($user['picture']) ? $user['picture'] : 'default.png';
-$profilePic = '..uploads/' . basename($filename);
+$profilePic = 'uploads' . basename($filename);
 
 $fullName = trim($user['firstName'] . ' ' . ($user['middleName'] ? $user['middleName'] . ' ' : '') . $user['lastName']);
 ?>
