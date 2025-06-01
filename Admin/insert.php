@@ -2,14 +2,12 @@
 session_start();
 include 'db.php';
 
-// Only allow admins to add users
 if (!isset($_SESSION['email']) || $_SESSION['role'] !== 'admin') {
     header("Location: ../index.php");
     exit();
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
-    // Sanitize and trim inputs
     $id = trim($_POST['id'] ?? '');
     $firstName = trim($_POST['firstName'] ?? '');
     $middleName = trim($_POST['middleName'] ?? '');
@@ -19,7 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
     $role = trim($_POST['role'] ?? '');
     $sex = trim($_POST['sex'] ?? '');
 
-    // Validate required fields
     if (empty($id) || empty($firstName) || empty($lastName) || empty($email) || empty($position) || empty($role) || empty($sex)) {
         alertAndRedirect('Please fill all required fields.');
     }
@@ -28,15 +25,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
         alertAndRedirect('Invalid email address.');
     }
 
-    // Format names (capitalize and remove extra spaces)
     $firstName = ucwords(strtolower(preg_replace('/\s+/', ' ', $firstName)));
     $middleName = ucwords(strtolower(preg_replace('/\s+/', ' ', $middleName)));
     $lastName = ucwords(strtolower(preg_replace('/\s+/', ' ', $lastName)));
 
-    // Determine target table based on role
     $table = strtolower($role) === 'admin' ? 'admin_' : 'employeeuser';
 
-    // Check if employeeID or email already exists in target table
     $checkSql = "SELECT 1 FROM $table WHERE employeeID = ? OR email = ? LIMIT 1";
     $stmtCheck = $conn->prepare($checkSql);
     $stmtCheck->bind_param("ss", $id, $email);
@@ -48,7 +42,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
     }
     $stmtCheck->close();
 
-    // Get current admin's employeeID for 'addedBy'
     $adminEmail = $_SESSION['email'];
     $stmtAdmin = $conn->prepare("SELECT employeeID FROM admin_ WHERE email = ? LIMIT 1");
     $stmtAdmin->bind_param("s", $adminEmail);

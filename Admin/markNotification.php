@@ -6,7 +6,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['toggleRead'])) {
     $employeeID = mysqli_real_escape_string($conn, $_POST['employeeID']);
     $role = $_POST['role'];
 
-    // Determine which table to update based on role
     if ($role === 'Admin') {
         $table = 'admin_';
     } elseif ($role === 'Employee') {
@@ -16,7 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['toggleRead'])) {
         exit;
     }
 
-    // Get current readStatus
     $sqlSelect = "SELECT readStatus FROM $table WHERE employeeID = '$employeeID' LIMIT 1";
     $result = mysqli_query($conn, $sqlSelect);
     if ($result && mysqli_num_rows($result) > 0) {
@@ -24,7 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['toggleRead'])) {
         $currentStatus = (int)$row['readStatus'];
         $newStatus = $currentStatus === 1 ? 0 : 1;
 
-        // Update readStatus
         $sqlUpdate = "UPDATE $table SET readStatus = $newStatus WHERE employeeID = '$employeeID'";
         mysqli_query($conn, $sqlUpdate);
     }

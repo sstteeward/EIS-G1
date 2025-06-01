@@ -1,5 +1,7 @@
 <?php
 include 'db.php';
+
+// Helper function to generate letter avatar with colored circle
 function generateLetterAvatar($letter) {
     $colors = ['#1abc9c', '#2ecc71', '#3498db', '#9b59b6', '#e67e22', '#e74c3c'];
     $color = $colors[ord(strtoupper($letter)) % count($colors)];
@@ -27,17 +29,17 @@ function generateLetterAvatar($letter) {
   <link rel="stylesheet" href="employee.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" href="assets/LOGO for title.png" />
-  <title>Asian College EIS</title>
+  <title>Asian College EIS Admin - Employee List</title>
 </head>
 <body>
   <nav class="top-nav">
-    <h2>Asian College EIS Employee</h2>
+    <h2>Asian College EIS Admin Employee</h2>
     <img src="assets/logo2-removebg-preview.png" alt="Logo" />
     <div class="menu">
       <img id="menuBtn" class="menuBtn" src="assets/menuIcon.png" alt="Menu Button" />
       <ul id="menuItems" class="menuItems">
         <li><a href="homeemployee.php">🏠 Home</a></li>
-        <li><a href="notifEmp.php">🔔 Notifications</a></li>
+        <li><a href="notifications.php">🔔 Notifications</a></li>
         <li><a href="employee.php">🧑‍💼 Employee</a></li>
         <li><a href="viewProfile.php">👤 Profile</a></li>
       </ul>
@@ -71,15 +73,13 @@ function generateLetterAvatar($letter) {
                   echo "<tr>";
                   echo "<td>" . $counter++ . "</td>";
                   
-                  // Show image or letter avatar for Admin
                   echo "<td>";
-                  if (!empty($row['picture']) && file_exists('uploads' . $row['picture'])) {
-                      echo "<img src='..uploads/" . htmlspecialchars($row['picture']) . "' alt='Profile' style='width:50px; height:50px; border-radius:50%; object-fit:cover;'>";
+                  if (!empty($row['picture']) && file_exists('uploads/' . $row['picture'])) {
+                      echo "<img src='uploads/" . htmlspecialchars($row['picture']) . "' alt='Profile' style='width:50px; height:50px; border-radius:50%; object-fit:cover;'>";
                   } else {
                       echo generateLetterAvatar($row['firstName'][0]);
                   }
                   echo "</td>";
-                  
                   echo "<td>" . htmlspecialchars($row['employeeID']) . "</td>";
                   echo "<td>" . htmlspecialchars($row['firstName']) . "</td>";
                   echo "<td>" . htmlspecialchars($row['middleName']) . "</td>";
@@ -109,6 +109,7 @@ function generateLetterAvatar($letter) {
             <th>Last Name</th>
             <th>Email</th>
             <th>Position</th>
+            
           </tr>
         </thead>
         <tbody>
@@ -121,10 +122,9 @@ function generateLetterAvatar($letter) {
                   echo "<tr>";
                   echo "<td>" . $counter++ . "</td>";
 
-                  // Show image or letter avatar for Employee
                   echo "<td>";
-                  if (!empty($row['picture']) && file_exists('uploads' . $row['picture'])) {
-                      echo "<img src='..uploads/" . htmlspecialchars($row['picture']) . "' alt='Profile' style='width:50px; height:50px; border-radius:50%; object-fit:cover;'>";
+                  if (!empty($row['picture']) && file_exists('uploads/' . $row['picture'])) {
+                      echo "<img src='uploads/" . htmlspecialchars($row['picture']) . "' alt='Profile' style='width:50px; height:50px; border-radius:50%; object-fit:cover;'>";
                   } else {
                       echo generateLetterAvatar($row['firstName'][0]);
                   }

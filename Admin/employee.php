@@ -83,7 +83,6 @@ function generateLetterAvatar($letter) {
                       echo generateLetterAvatar($row['firstName'][0]);
                   }
                   echo "</td>";
-                  
                   echo "<td>" . htmlspecialchars($row['employeeID']) . "</td>";
                   echo "<td>" . htmlspecialchars($row['firstName']) . "</td>";
                   echo "<td>" . htmlspecialchars($row['middleName']) . "</td>";

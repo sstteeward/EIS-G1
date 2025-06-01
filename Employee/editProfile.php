@@ -77,9 +77,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <img id="menuBtn" class="menuBtn" src="assets/menuIcon.png" alt="Menu Button" />
       <ul id="menuItems" class="menuItems">
         <li><a href="homeemployee.php">🏠 Home</a></li>
-        <li><a href="notifEmp.php">🔔 Notifications</a></li>
+        <li><a href="notifications.php">🔔 Notifications</a></li>
         <li><a href="employee.php">🧑‍💼 Employee</a></li>
-        <li><a href="viewProfile.php">👤 Profile</a></li>
+        <li><a href="profileEmp.php">👤 Profile</a></li>
       </ul>
     </div>
   </nav>

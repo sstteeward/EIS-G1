@@ -66,9 +66,9 @@ $fullName = trim($user['firstName'] . ' ' . ($user['middleName'] ? $user['middle
       <img id="menuBtn" class="menuBtn" src="assets/menuIcon.png" alt="Menu Button" role="button" aria-label="Toggle navigation menu" />
       <ul id="menuItems" class="menuItems">
         <li><a href="homeemployee.php">🏠 Home</a></li>
-        <li><a href="notifEmp.php">🔔 Notifications</a></li>
+        <li><a href="notifications.php">🔔 Notifications</a></li>
         <li><a href="employee.php">🧑‍💼 Employee</a></li>
-        <li><a href="viewProfile.php">👤 Profile</a></li> 
+        <li><a href="profileEmp.php">👤 Profile</a></li>
       </ul>
     </div>
 </nav>

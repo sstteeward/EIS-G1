@@ -7,21 +7,18 @@ date_default_timezone_set('Asia/Manila');
 $filter = $_GET['filter'] ?? 'all';
 $whereClauses = [];
 
-// Date filters
 if ($filter === 'today') {
     $whereClauses[] = "DATE(registryDate) = CURDATE()";
 } elseif ($filter === 'week') {
     $whereClauses[] = "YEARWEEK(registryDate, 1) = YEARWEEK(CURDATE(), 1)";
 }
 
-// Read status filters
 if ($filter === 'read') {
     $whereClauses[] = "readStatus = 1";
 } elseif ($filter === 'unread') {
     $whereClauses[] = "readStatus = 0";
 }
 
-// Combine WHERE clauses if any
 $whereClause = '';
 if (!empty($whereClauses)) {
     $whereClause = 'WHERE ' . implode(' AND ', $whereClauses);
@@ -33,7 +30,6 @@ $employeeQuery = "SELECT employeeID, firstName, lastName, registryDate, readStat
 $sql = "$adminQuery UNION $employeeQuery ORDER BY registryDate DESC";
 $result = mysqli_query($conn, $sql);
 
-// Helper function to highlight active filter link
 function activeClass($filterName, $currentFilter) {
     return $filterName === $currentFilter ? 'active' : '';
 }
@@ -56,7 +52,7 @@ function activeClass($filterName, $currentFilter) {
       <img id="menuBtn" class="menuBtn" src="assets/menuIcon.png" alt="Menu Button" />
       <ul id="menuItems" class="menuItems">
         <li><a href="homeemployee.php">🏠 Home</a></li>
-        <li><a href="notifEmp.php">🔔 Notifications</a></li>
+        <li><a href="notifications.php">🔔 Notifications</a></li>
         <li><a href="employee.php">🧑‍💼 Employee</a></li>
         <li><a href="profileEmp.php">👤 Profile</a></li>
       </ul>

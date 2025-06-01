@@ -19,7 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
     $role = trim($_POST['role'] ?? '');
     $sex = trim($_POST['sex'] ?? '');
 
-    // Validate required fields
     if (empty($id) || empty($firstName) || empty($lastName) || empty($email) || empty($position) || empty($role) || empty($sex)) {
         alertAndRedirect('Please fill all required fields.');
     }
@@ -27,16 +26,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         alertAndRedirect('Invalid email address.');
     }
-
-    // Format names (capitalize and remove extra spaces)
     $firstName = ucwords(strtolower(preg_replace('/\s+/', ' ', $firstName)));
     $middleName = ucwords(strtolower(preg_replace('/\s+/', ' ', $middleName)));
     $lastName = ucwords(strtolower(preg_replace('/\s+/', ' ', $lastName)));
 
-    // Determine target table based on role
     $table = strtolower($role) === 'admin' ? 'admin_' : 'employeeuser';
 
-    // Check if employeeID or email already exists in target table
     $checkSql = "SELECT 1 FROM $table WHERE employeeID = ? OR email = ? LIMIT 1";
     $stmtCheck = $conn->prepare($checkSql);
     $stmtCheck->bind_param("ss", $id, $email);
@@ -48,7 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
     }
     $stmtCheck->close();
 
-    // Get current admin's employeeID for 'addedBy'
     $adminEmail = $_SESSION['email'];
     $stmtAdmin = $conn->prepare("SELECT employeeID FROM admin_ WHERE email = ? LIMIT 1");
     $stmtAdmin->bind_param("s", $adminEmail);
@@ -61,7 +55,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
         alertAndRedirect("Could not determine admin who is adding this user.");
     }
 
-    // Insert new user with current timestamp for registryDate
     $insertSql = "INSERT INTO $table (employeeID, firstName, middleName, lastName, email, position, sex, registryDate, addedBy) VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), ?)";
     $stmtInsert = $conn->prepare($insertSql);
     $stmtInsert->bind_param("sssssssi", $id, $firstName, $middleName, $lastName, $email, $position, $sex, $addedBy);
