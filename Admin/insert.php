@@ -54,7 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
         alertAndRedirect("Could not determine admin who is adding this user.");
     }
 
-    // Insert new user with current timestamp for registryDate
     $insertSql = "INSERT INTO $table (employeeID, firstName, middleName, lastName, email, position, sex, registryDate, addedBy) VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), ?)";
     $stmtInsert = $conn->prepare($insertSql);
     $stmtInsert->bind_param("sssssssi", $id, $firstName, $middleName, $lastName, $email, $position, $sex, $addedBy);

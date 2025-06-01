@@ -1,0 +1,125 @@
+
+
+
+.menuBtn {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .top-nav ul {
+        display: none;
+    }
+
+    .menuBtn {
+        display: block;
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+    }
+
+    .menuItems.menuOpen {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        right: 20px;
+        background-color: #1e3a8a;
+        border-radius: 8px;
+        overflow: hidden;
+        padding: 10px 0;
+        z-index: 999;
+    }
+
+    .menuItems li {
+        margin: 10px 0;
+    }
+
+    .menuItems li a {
+        display: block;
+        padding: 10px 20px;
+    }
+}
+
+ @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  background: linear-gradient(to right, #dcefff, #f3f9ff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+}
+
+.container {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 3rem 4rem;
+  border-radius: 20px;
+  text-align: center;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  max-width: 500px;
+  width: 90%;
+}
+
+.logo {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 1.5rem;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: #000000;
+}
+
+p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: #000000;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  color: #fff;
+  background: #0000FF;
+  border: none;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.btn:hover {
+  background: #FF0000;
+  transform: scale(1.05);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  .container {
+    padding: 2rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+}

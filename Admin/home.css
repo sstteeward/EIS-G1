@@ -7,11 +7,12 @@
 body, html {
     height: 100%;
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background: linear-gradient(to right, #dcefff, #f3f9ff);
+
 }
 
 .top-nav {
-    background-color: #1e3a8a;
+    background: linear-gradient(to right, #dcefff, #f3f9ff);
     color: white;
     padding: 15px 30px;
     display: flex;
@@ -32,6 +33,7 @@ body, html {
 .top-nav h2 {
     margin: 0;
     font-size: 24px;
+    color: black;
 }
 
 .top-nav ul {
@@ -46,7 +48,7 @@ body, html {
 }
 
 .top-nav ul li a {
-    color: white;
+    color: black;
     text-decoration: none;
     padding: 10px 15px;
     border-radius: 4px;
@@ -54,7 +56,7 @@ body, html {
 }
 
 .top-nav ul li a:hover {
-    background-color: #e11d48;
+    background-color: red;
 }
 
 .menuBtn {
@@ -151,7 +153,7 @@ h1{
 }
 
 .quick-actions a:hover {
-  background: #0056b3;
+  background-color: red;
 }
 
 .recent {

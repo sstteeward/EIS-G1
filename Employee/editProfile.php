@@ -11,7 +11,6 @@ $email = $_SESSION['email'];
 $role = $_SESSION['role'];
 $table = $role === 'admin' ? 'admin_' : 'employeeuser';
 
-// Fetch current user info
 $query = "SELECT * FROM $table WHERE email = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("s", $email);
@@ -29,7 +28,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contactNumber = trim($_POST['contactNumber']);
     $address = trim($_POST['address']);
 
-    // Handle profile picture upload
     if (!empty($_FILES["picture"]["name"])) {
         $targetDir = "uploads/";
         $fileName = basename($_FILES["picture"]["name"]);
@@ -40,20 +38,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (in_array(strtolower($fileType), $allowedTypes)) {
             move_uploaded_file($_FILES["picture"]["tmp_name"], $targetFilePath);
         } else {
-            $fileName = $user['picture']; // Keep old picture if invalid type
+            $fileName = $user['picture']; 
         }
     } else {
-        $fileName = $user['picture']; // Keep old picture if none uploaded
+        $fileName = $user['picture']; 
     }
 
-    // Update query
     $updateQuery = "UPDATE $table SET firstName=?, middleName=?, lastName=?, position=?, status=?, contactNumber=?, address=?, picture=? WHERE email=?";
     $stmt = $conn->prepare($updateQuery);
     $stmt->bind_param("sssssssss", $firstName, $middleName, $lastName, $position, $status, $contactNumber, $address, $fileName, $email);
     $stmt->execute();
     $stmt->close();
 
-    // Refresh the page
     header("Location: profile.php");
     exit();
 }
@@ -116,7 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <br><br>
         <input type="submit" value="💾 Save Changes" class="btn">
-        <a href="profile.php" class="btn btn-logout">❌ Cancel</a>
+        <a href="viewProfile.php" class="btn btn-logout">❌ Cancel</a>
       </div>
     </form>
   </div>

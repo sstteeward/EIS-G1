@@ -7,11 +7,11 @@
 body, html {
     height: 100%;
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background: linear-gradient(to right, #dcefff, #f3f9ff);
 }
 
 .top-nav {
-    background-color: #1e3a8a;
+    background: linear-gradient(to right, #dcefff, #f3f9ff);
     color: white;
     padding: 15px 30px;
     display: flex;
@@ -32,6 +32,7 @@ body, html {
 .top-nav h2 {
     margin: 0;
     font-size: 24px;
+    color: black;
 }
 
 .top-nav ul {
@@ -46,7 +47,7 @@ body, html {
 }
 
 .top-nav ul li a {
-    color: white;
+    color: black;
     text-decoration: none;
     padding: 10px 15px;
     border-radius: 4px;
@@ -54,7 +55,7 @@ body, html {
 }
 
 .top-nav ul li a:hover {
-    background-color: #e11d48;
+    background-color: red;
 }
 
 .menuBtn {
@@ -147,7 +148,7 @@ h1 {
 /* Hover on all filter buttons */
 .filter-options a:hover {
   background-color: #add8e6; /* Lighter Blue */
-  color: #003366;
+  color: red;
   transform: scale(1.05);
 }
 
@@ -175,7 +176,7 @@ h1 {
 /* Read/Unread Styles */
 .notification-item.read {
   opacity: 0.6;
-  border-left-color: #6c757d;
+  border-left-color: red;
 }
 
 .notification-item.unread {
@@ -186,7 +187,7 @@ h1 {
 /* Text inside notifications */
 .notification-item p {
   margin: 0.2rem 0;
-  color: #444;
+  color: black;
 }
 
 .notification-item strong {
@@ -196,7 +197,7 @@ h1 {
 
 .notification-item small {
   font-size: 0.8rem;
-  color: #888;
+  color: black;
 }
 
 /* Toggle Button */
@@ -213,7 +214,7 @@ h1 {
 }
 
 .read-toggle-btn:hover {
-  background-color: #0056b3;
+  background-color: red;
 }
 
 /* Responsive Menu */
