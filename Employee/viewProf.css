@@ -8,12 +8,10 @@ body,
 html {
   height: 100%;
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-}
+background: linear-gradient(to right, #dcefff, #f3f9ff);}
 
 .top-nav {
-  background-color: #1e3a8a;
-  color: white;
+background: linear-gradient(to right, #dcefff, #f3f9ff);  color: white;
   padding: 15px 30px;
   display: flex;
   align-items: center;
@@ -33,6 +31,7 @@ html {
 .top-nav h2 {
   margin: 0;
   font-size: 24px;
+  color: black;
 }
 
 .top-nav ul {
@@ -47,7 +46,7 @@ html {
 }
 
 .top-nav ul li a {
-  color: white;
+  color: black;
   text-decoration: none;
   padding: 10px 15px;
   border-radius: 4px;

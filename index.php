@@ -48,7 +48,12 @@ $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
                     <input type="text" name="email" placeholder="Email" required>
                 </div>
                 <div class="login-input">
-                    <input type="text" name="id" placeholder="ID" maxlength="20" required onpaste="return false;">
+                    <div class="login-input">
+                    <input type="password" name="id" id="id" placeholder="ID" maxlength="20" required onpaste="return false;">
+                    <label style="display:block; margin-top:5px;">
+                        <input type="checkbox" id="show-id"> Show ID
+                    </label>
+                </div>
                 </div>
                 <div class="login-button">
                     <button type="submit" name="login">Login</button>
@@ -71,6 +76,13 @@ $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
                 roleInput.value = selectedRole;
                 loginForm.classList.remove('hidden');
             }
+        });
+
+        const showIDCheckbox = document.getElementById('show-id');
+        const idInput = document.getElementById('id');
+
+        showIDCheckbox.addEventListener('change', function () {
+            idInput.type = this.checked ? 'text' : 'password';
         });
 
         form.addEventListener('submit', function () {

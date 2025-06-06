@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $address = trim($_POST['address']);
 
     if (!empty($_FILES["picture"]["name"])) {
-        $targetDir = "uploads/";
+        $targetDir = "Employee\uploads";
         $fileName = basename($_FILES["picture"]["name"]);
         $targetFilePath = $targetDir . $fileName;
         $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->execute();
     $stmt->close();
 
-    header("Location: profile.php");
+    header("Location: viewProfile.php");
     exit();
 }
 ?>
