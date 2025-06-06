@@ -6,7 +6,12 @@ if (!$conn) die("DB connection failed: " . mysqli_connect_error());
 if (isset($_POST['login'])) {
     $email = trim($_POST['email']);
     $employeeID = trim($_POST['id']);
-    $role = $_POST['role'];
+    $role = $_POST['role'] ?? '';
+
+    // CSRF token check (optional, but recommended)
+    if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+        fail("Invalid request token.");
+    }
 
     if ($email === '' || $employeeID === '' || $role === '') {
         fail();
@@ -25,27 +30,29 @@ if (isset($_POST['login'])) {
     mysqli_stmt_store_result($stmt);
 
     if (mysqli_stmt_num_rows($stmt) === 1) {
+        mysqli_stmt_bind_result($stmt, $firstName);
+        mysqli_stmt_fetch($stmt);
+
         $_SESSION['email'] = $email;
         $_SESSION['role'] = $role;
+        $_SESSION['firstName'] = $firstName;
 
-        if ($role === 'admin') {
-            header("Location: Admin/home.php");
-        } else {
-            header("Location: Employee/homeemployee.php");
-        }
+        header("Location: welcome.php");
         exit();
     } else {
         fail();
     }
 } else {
     echo "Invalid request.";
+    exit();
 }
 
-function fail() {
-    echo "<script>
-        alert('Invalid email, ID, or role.');
-        window.location.href = 'index.php';
-    </script>";
+function fail($message = 'Invalid email, ID, or role.') {
+    $_SESSION['login_error'] = $message;
+    if (isset($_POST['role'])) {
+        $_SESSION['last_role'] = $_POST['role'];
+    }
+    header("Location: index.php");
     exit();
 }
 ?>

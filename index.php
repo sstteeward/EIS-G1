@@ -50,7 +50,6 @@ if (empty($_SESSION['csrf_token'])) {
         </div>
 
         <div class="login <?php echo $showLogin ? '' : 'hidden'; ?>" id="login-form">
-            <!-- Show error above email if login failed -->
             <?php if ($showLogin): ?>
                 <div class="error-message">Invalid email, ID, or role.</div>
             <?php endif; ?>
@@ -77,35 +76,35 @@ if (empty($_SESSION['csrf_token'])) {
             </form>
         </div>
     </div>
+<script>
+    const roleSelect = document.getElementById('role-select');
+    const loginForm = document.getElementById('login-form');
+    const roleInput = document.getElementById('role-input');
+    const showIDCheckbox = document.getElementById('show-id');
+    const idInput = document.getElementById('id');
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const roleSelect = document.getElementById('role-select');
-            const loginForm = document.getElementById('login-form');
-            const roleInput = document.getElementById('role-input');
-            const showIDCheckbox = document.getElementById('show-id');
-            const idInput = document.getElementById('id');
+    function showLoginIfRoleSelected() {
+        const selectedRole = roleSelect.value;
+        if (selectedRole === 'admin' || selectedRole === 'employee') {
+            roleInput.value = selectedRole;
+            loginForm.classList.remove('hidden');
+        }
+    }
+    
+    roleSelect.addEventListener('change', showLoginIfRoleSelected);
 
-            // Show login form and set role if previously failed
-            <?php if ($showLogin): ?>
-                loginForm.classList.remove('hidden');
-                roleSelect.value = "<?php echo $selectedRole; ?>";
-                roleInput.value = "<?php echo $selectedRole; ?>";
-            <?php endif; ?>
+    showIDCheckbox.addEventListener('change', () => {
+        idInput.type = showIDCheckbox.checked ? 'text' : 'password';
+    });
 
-            roleSelect.addEventListener('change', function () {
-                const selectedRole = this.value;
-                if (selectedRole) {
-                    roleInput.value = selectedRole;
-                    loginForm.classList.remove('hidden');
-                }
-            });
+    window.addEventListener('DOMContentLoaded', () => {
+        if (roleSelect.value) {
+            showLoginIfRoleSelected();
+        }
+    });
+</script>
 
-            showIDCheckbox.addEventListener('change', function () {
-                idInput.type = this.checked ? 'text' : 'password';
-            });
-        });
-    </script>
+
 
 </body>
 </html>
