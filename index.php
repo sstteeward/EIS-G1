@@ -1,8 +1,21 @@
 <?php
 session_start();
-session_destroy(); 
+$showLogin = false;
+$selectedRole = '';
 
-$_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+if (isset($_SESSION['login_error'])) {
+    $showLogin = true;
+    if (isset($_SESSION['last_role'])) {
+        $selectedRole = $_SESSION['last_role'];
+    }
+    unset($_SESSION['login_error']);
+    unset($_SESSION['last_role']);
+}
+
+// Generate CSRF token
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
 ?>
 
 <!DOCTYPE html>
@@ -30,15 +43,20 @@ $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
         <div class="role-selection">
             <h2>Select Your Role</h2>
             <select id="role-select">
-                <option value="" disabled selected>Select Role</option>
-                <option value="admin">Admin</option>
-                <option value="employee">Employee</option>
+                <option value="" disabled>Select Role</option>
+                <option value="admin" <?php if ($selectedRole === 'admin') echo 'selected'; ?>>Admin</option>
+                <option value="employee" <?php if ($selectedRole === 'employee') echo 'selected'; ?>>Employee</option>
             </select>
         </div>
 
-        <div class="login hidden" id="login-form">
+        <div class="login <?php echo $showLogin ? '' : 'hidden'; ?>" id="login-form">
+            <!-- Show error above email if login failed -->
+            <?php if ($showLogin): ?>
+                <div class="error-message">Invalid email, ID, or role.</div>
+            <?php endif; ?>
+            
             <form action="login.php" method="post" autocomplete="off">
-                <input type="hidden" name="role" id="role-input">
+                <input type="hidden" name="role" id="role-input" value="<?php echo htmlspecialchars($selectedRole); ?>">
                 <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
 
                 <div class="login-title">
@@ -48,12 +66,10 @@ $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
                     <input type="text" name="email" placeholder="Email" required>
                 </div>
                 <div class="login-input">
-                    <div class="login-input">
                     <input type="password" name="id" id="id" placeholder="ID" maxlength="20" required onpaste="return false;">
                     <label style="display:block; margin-top:5px;">
                         <input type="checkbox" id="show-id"> Show ID
                     </label>
-                </div>
                 </div>
                 <div class="login-button">
                     <button type="submit" name="login">Login</button>
@@ -62,37 +78,33 @@ $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
         </div>
     </div>
 
- 
     <script>
-        const roleSelect = document.getElementById('role-select');
-        const loginForm = document.getElementById('login-form');
-        const roleInput = document.getElementById('role-input');
-        const form = document.querySelector('form');
-        const loader = document.getElementById('loader');
+        document.addEventListener("DOMContentLoaded", function() {
+            const roleSelect = document.getElementById('role-select');
+            const loginForm = document.getElementById('login-form');
+            const roleInput = document.getElementById('role-input');
+            const showIDCheckbox = document.getElementById('show-id');
+            const idInput = document.getElementById('id');
 
-        roleSelect.addEventListener('change', function () {
-            const selectedRole = this.value;
-            if (selectedRole) {
-                roleInput.value = selectedRole;
+            // Show login form and set role if previously failed
+            <?php if ($showLogin): ?>
                 loginForm.classList.remove('hidden');
-            }
+                roleSelect.value = "<?php echo $selectedRole; ?>";
+                roleInput.value = "<?php echo $selectedRole; ?>";
+            <?php endif; ?>
+
+            roleSelect.addEventListener('change', function () {
+                const selectedRole = this.value;
+                if (selectedRole) {
+                    roleInput.value = selectedRole;
+                    loginForm.classList.remove('hidden');
+                }
+            });
+
+            showIDCheckbox.addEventListener('change', function () {
+                idInput.type = this.checked ? 'text' : 'password';
+            });
         });
-
-        const showIDCheckbox = document.getElementById('show-id');
-        const idInput = document.getElementById('id');
-
-        showIDCheckbox.addEventListener('change', function () {
-            idInput.type = this.checked ? 'text' : 'password';
-        });
-
-        form.addEventListener('submit', function () {
-            loader.classList.remove('hidden');
-        });
-
-        if (window.history.replaceState) {
-            window.history.replaceState(null, null, window.location.href);
-        }
-
     </script>
 
 </body>

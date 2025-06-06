@@ -10,40 +10,31 @@ $dashboard = $_SESSION['role'] === 'admin' ? 'Admin/home.php' : 'Employee/homeem
 $firstName = htmlspecialchars($_SESSION['firstName']);
 ?>
 
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <link rel="stylesheet" href="welcome.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" href="assets/LOGO for title.png" />
+  <link rel="icon" href="assets/logo.png" />
   <title>Asian College EIS</title>
 </head>
 <body>
 
 <div class="container">
-    <img src="assets\LOGO for title.png" alt="Logo" class="logo" />
-    <h1>Welcome, <?php echo $firstName; ?>!</h1>
-    <p>You have successfully logged in to the <strong>Employee Information System</strong>.</p>
-    <a href="<?php echo $dashboard; ?>" class="btn">Proceed</a>
+    <div class="logo-title-container">
+        <div class="logo">
+            <img src="assets/logo.png" alt="Asian College Logo" />
+        </div>
+        <div class="title">
+            <h3>Asian College EIS</h3>
+        </div>
+    </div>
+
+    <h1 class="welcome-text">Welcome, <?php echo $firstName; ?>!</h1>
+    <p class="fade-in delayed-1">You have successfully logged in to the <strong>Employee Information System</strong>.</p>
+    <a href="<?php echo $dashboard; ?>" class="btn fade-in delayed-2">Proceed</a>
 </div>
 
-  <script>
-    const menuBtn = document.getElementById('menuBtn');
-    const menuItems = document.getElementById('menuItems');
-    let menuOpen = false;
-
-    menuBtn.addEventListener('click', () => {
-      menuOpen = !menuOpen;
-      menuBtn.src = menuOpen ? 'assets/closeIcon.png' : 'assets/menuIcon.png';
-      menuItems.classList.toggle('menuOpen', menuOpen);
-    });
-
-    menuItems.addEventListener('click', () => {
-      menuOpen = false;
-      menuBtn.src = 'assets/menuIcon.png';
-      menuItems.classList.remove('menuOpen');
-    });
-
-  </script>
 </body>
 </html>

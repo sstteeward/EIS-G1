@@ -6,7 +6,12 @@ if (!$conn) die("DB connection failed: " . mysqli_connect_error());
 if (isset($_POST['login'])) {
     $email = trim($_POST['email']);
     $employeeID = trim($_POST['id']);
-    $role = $_POST['role'];
+    $role = $_POST['role'] ?? '';
+
+    // CSRF token check (optional, but recommended)
+    if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+        fail("Invalid request token.");
+    }
 
     if ($email === '' || $employeeID === '' || $role === '') {
         fail();
@@ -32,7 +37,6 @@ if (isset($_POST['login'])) {
         $_SESSION['role'] = $role;
         $_SESSION['firstName'] = $firstName;
 
-        // Redirect to common welcome page
         header("Location: welcome.php");
         exit();
     } else {
@@ -43,11 +47,12 @@ if (isset($_POST['login'])) {
     exit();
 }
 
-function fail() {
-    echo "<script>
-        alert('Invalid email, ID, or role.');
-        window.location.href = 'index.php';
-    </script>";
+function fail($message = 'Invalid email, ID, or role.') {
+    $_SESSION['login_error'] = $message;
+    if (isset($_POST['role'])) {
+        $_SESSION['last_role'] = $_POST['role'];
+    }
+    header("Location: index.php");
     exit();
 }
 ?>
