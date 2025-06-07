@@ -93,7 +93,7 @@ $fullName = trim($user['firstName'] . ' ' . ($user['middleName'] ? $user['middle
     </div>
 
     <div class="profile-actions">
-      <a href="editProfile.php" class="btn">✏️ Edit Profile</a>
+      <a href="editProfile.php" class="btn">✏️ Edit Profile</a> 
       <a href="logout.php" class="btn btn-logout">🚪 Logout</a>
     </div>
 
